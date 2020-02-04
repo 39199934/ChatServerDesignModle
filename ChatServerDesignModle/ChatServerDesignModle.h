@@ -10,8 +10,11 @@ class ChatServerDesignModle : public QMainWindow
 
 public:
 	ChatServerDesignModle(QWidget *parent = Q_NULLPTR);
-	QTcpServer* server;
+	MyServer* server;
 	~ChatServerDesignModle();
+	
+public slots:
+	void onChangeedServerStat();
 
 private:
 	Ui::ChatServerDesignModleClass ui;

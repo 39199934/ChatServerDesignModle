@@ -55,3 +55,9 @@ void BodyProtocol::setDocument()
 	this->appendToSonsJson(&obj);
 	this->bag.setObject(obj);
 }
+
+void BodyProtocol::setReciver(QString new_reciver)
+{
+	this->reciver = new_reciver;
+	setDocument();
+}

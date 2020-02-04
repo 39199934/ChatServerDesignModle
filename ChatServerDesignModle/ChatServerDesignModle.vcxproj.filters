@@ -52,9 +52,6 @@
     <ClCompile Include="MyClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ServerInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,6 +62,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UserInfoProtocol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Clients.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -121,6 +124,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UserInfoProtocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Clients.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

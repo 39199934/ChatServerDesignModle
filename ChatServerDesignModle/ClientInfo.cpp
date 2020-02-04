@@ -35,3 +35,4 @@ void ClientInfo::setClientInfo(QString name, QString nick_name, QString pass_wor
 	this->password = pass_word;
 	this->setDocument();
 }
+

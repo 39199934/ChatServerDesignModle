@@ -6,10 +6,29 @@ ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 {
 	ui.setupUi(this);
 	server->listen(QHostAddress::Any, 5666);
+	//connect()
+	//ui.menuBar->menu
+	connect(ui.cActionServerState, &QAction::triggered, this, &ChatServerDesignModle::onChangeedServerStat);
+	server->start();
+	ui.cActionServerState->setChecked(true);
 }
 
 ChatServerDesignModle::~ChatServerDesignModle()
 {
-	server->close();
+	//serve
+	
 	delete server;
+}
+
+void ChatServerDesignModle::onChangeedServerStat()
+{
+	if (server->isListening()) {
+		server->stop();
+		ui.cActionServerState->setChecked(false);
+
+	}
+	else {
+		server->start();
+		ui.cActionServerState->setChecked(true);
+	}
 }

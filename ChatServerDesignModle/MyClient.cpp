@@ -31,3 +31,16 @@ MyClient::~MyClient()
 
 	}
 }
+
+void MyClient::sendMessage(Message* msg)
+{
+	messages.append(msg);
+	msg->body->setReciver( clientInfo->getUuid());
+	
+	this->write(msg->head->toBytes());
+	waitForBytesWritten();
+	this->write(msg->body->toBytes());
+	waitForBytesWritten();
+}
+
+

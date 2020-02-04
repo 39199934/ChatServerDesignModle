@@ -84,6 +84,7 @@
     <ClCompile Include="BodyProtocol.cpp" />
     <ClCompile Include="ChatServerDesignModle.cpp" />
     <ClCompile Include="ClientInfo.cpp" />
+    <ClCompile Include="Clients.cpp" />
     <ClCompile Include="CommandBody.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="BagProtocol.h" />
     <ClInclude Include="BodyProtocol.h" />
     <ClInclude Include="ClientInfo.h" />
+    <ClInclude Include="Clients.h" />
     <ClInclude Include="CommandBody.h" />
     <ClInclude Include="MessageHead.h" />
     <QtMoc Include="Message.h" />

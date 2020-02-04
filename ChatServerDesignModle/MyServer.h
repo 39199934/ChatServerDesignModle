@@ -4,6 +4,9 @@
 #include "ServerSetting.h"
 #include "MyClient.h"
 #include <QVector>
+#include "Message.h"
+#include "TextBody.h"
+#include "Clients.h"
 
 class MyServer : public QTcpServer
 {
@@ -12,7 +15,7 @@ class MyServer : public QTcpServer
 private:
 	ServerSetting setting;
 
-	QVector<MyClient*> clients;
+	Clients* clients;
 public:
 	MyServer(QObject *parent);
 	~MyServer();
@@ -21,6 +24,7 @@ public:
 	void stop();
 
 	int findClientInClients(MyClient* client);
+	void sendMessageToAll(Message* msg);
 protected:
 	virtual void incomingConnection(qintptr socketDescriptor) override;
 };

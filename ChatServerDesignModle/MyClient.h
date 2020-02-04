@@ -12,8 +12,10 @@ class MyClient : public QTcpSocket
 
 public:
 	QVector<Message*> messages;
-	UserInfoProtocol* clientInfo;
+	ClientInfo* clientInfo;
 	//MyClient(QObject *parent);
 	MyClient(qintptr socketDescriptor, QObject* parent = nullptr);
 	~MyClient();
+	void sendMessage(Message* msg);
+
 };

@@ -70,3 +70,8 @@ void UserInfoProtocol::createUuid()
 	fromJson(obj);
 
 }
+
+QString UserInfoProtocol::getUuid()
+{
+	return this->uuid;
+}

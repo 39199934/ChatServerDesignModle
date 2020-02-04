@@ -3,7 +3,7 @@
 MyServer::MyServer(QObject *parent)
 	: QTcpServer(parent),
 	setting(ServerSetting()),
-	clients(QVector<MyClient *>())
+	clients(new Clients())
 {
 	setting.loadSetting();
 
@@ -11,13 +11,9 @@ MyServer::MyServer(QObject *parent)
 
 MyServer::~MyServer()
 {
-	for each( auto client in clients)
-	{
-		if (client) {
-			client->write("bye");
-		
-			delete client;
-		}
+
+	if (clients) {
+		delete clients;
 	}
 }
 
@@ -28,29 +24,23 @@ void MyServer::start()
 
 void MyServer::stop()
 {
+	TextBody text("server is closed", "server", "all");
+	Message *msg = new Message(&text, this);
+	sendMessageToAll(msg);
+	clients->disConnectToAll();
+	
 	this->close();
 }
 
-int MyServer::findClientInClients(MyClient* client)
-{
-	int index = 0;
-	for(int i=0 ;i<clients.count;i++)
-	{
-		auto c = clients.at(i);
-		if (c == client) {
-			return i;
 
-		}
-		else {
-			index++;
-		}
-	}
-	return -1;
+void MyServer::sendMessageToAll(Message* msg)
+{
+	clients->sendMessageToAll(msg);
 }
 
 void MyServer::incomingConnection(qintptr socketDescriptor)
 {
-	MyClient* client = new MyClient(socketDescriptor, this);
+	auto client = clients->appendClient(socketDescriptor);
 	client->write("hello client");
-	clients.append(client);
+	
 }

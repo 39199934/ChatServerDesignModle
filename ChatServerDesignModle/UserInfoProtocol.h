@@ -28,6 +28,8 @@ public:
 	void setUserInfoProtocol(QString name, QString nick_name,QString user_uuid = QString());
 	//virtual void setValue() override;
 	void createUuid();
+
+	QString getUuid();
 	
 
 };
