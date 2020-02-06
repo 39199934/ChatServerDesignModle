@@ -35,6 +35,11 @@ void UserInfoProtocol::setUserInfoProtocol(QString name, QString nick_name, QStr
 	
 }
 
+QString UserInfoProtocol::getDescription()
+{
+	return this->nickName + "(" + this->name + ")";
+}
+
 void UserInfoProtocol::setValue()
 {
 	auto obj = getBag().object();

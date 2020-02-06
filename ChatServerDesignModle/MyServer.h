@@ -15,7 +15,7 @@ class MyServer : public QTcpServer
 private:
 	ServerSetting setting;
 
-	Clients* clients;
+	
 public:
 	MyServer(QObject *parent);
 	~MyServer();
@@ -25,6 +25,9 @@ public:
 
 	int findClientInClients(MyClient* client);
 	void sendMessageToAll(Message* msg);
+
+
+	Clients* clients;
 protected:
 	virtual void incomingConnection(qintptr socketDescriptor) override;
 };

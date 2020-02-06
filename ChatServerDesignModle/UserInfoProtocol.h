@@ -5,7 +5,7 @@
 class UserInfoProtocol:
 	public BagProtocol
 {
-private:
+public:
 	QString name;
 	QString nickName;
 	QString uuid;
@@ -26,6 +26,7 @@ public:
 
 	virtual ~UserInfoProtocol();
 	void setUserInfoProtocol(QString name, QString nick_name,QString user_uuid = QString());
+	virtual QString getDescription();
 	//virtual void setValue() override;
 	void createUuid();
 

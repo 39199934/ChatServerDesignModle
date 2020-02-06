@@ -4,17 +4,21 @@
 #pragma once
 #include <QVector>
 #include "MyClient.h"
-class Clients
+#include <QAbstractItemModel>
+#include <QAbstractTableModel>
+
+
+class Clients: public QAbstractTableModel
 {
 
 private:
 	QVector<MyClient*> clients;
 public:
-	Clients();
+	Clients(QObject * parent = nullptr);
 	virtual ~Clients();
 
 
-	int getCound();
+	int getCount();
 	MyClient* appendClient(MyClient* client);
 	MyClient* appendClient(qintptr socketDescriptor);
 	bool removeClient(MyClient* client);
@@ -26,5 +30,15 @@ public:
 
 
 	void sendMessageToAll(Message* msg);
+
+
+public:
+	virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+	virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+	virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+	virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
+	virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+	virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
+
 };
 
