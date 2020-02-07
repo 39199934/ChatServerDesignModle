@@ -34,3 +34,8 @@ CommandBody::CommandBody(QString command_type, QString command_name, QJsonArray 
 {
 	this->setDocument();
 }
+
+QString CommandBody::getDescription()
+{
+	return "command,name is:" + this->commandName;
+}

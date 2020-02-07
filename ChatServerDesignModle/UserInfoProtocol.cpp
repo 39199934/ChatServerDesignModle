@@ -76,7 +76,32 @@ void UserInfoProtocol::createUuid()
 
 }
 
+QString UserInfoProtocol::getName()
+{
+	this->setValue();
+	return this->name;
+}
+
+QString UserInfoProtocol::getNickName()
+{
+	this->setValue();
+	return this->nickName;
+}
+
 QString UserInfoProtocol::getUuid()
 {
+	this->setValue();
 	return this->uuid;
+}
+
+void UserInfoProtocol::setName(QString name)
+{
+	this->name = name;
+	this->setDocument();
+}
+
+void UserInfoProtocol::setNickName(QString nickName)
+{
+	this->nickName = nickName;
+	this->setDocument();
 }

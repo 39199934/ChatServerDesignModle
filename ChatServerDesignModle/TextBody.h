@@ -12,6 +12,7 @@ public:
 public:
 	TextBody();
 	TextBody(QString textMessage,QString sender= QString(),QString reciver = QString());
+	virtual QString getDescription() ;
 	
 };
 

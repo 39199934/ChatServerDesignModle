@@ -101,10 +101,16 @@ QVariant Clients::data(const QModelIndex& index, int role) const
 			return info->getDescription();
 		}
 		if (index.column() == 1) {
-			return info->name;
+			return info->getName();
 		}
 		if (index.column() == 2) {
 			return info->getUuid();
+		}
+		if (index.column() == 3) {
+			return info->getIpAddress();
+		}
+		if (index.column() == 4) {
+			return QString::number(info->getPort());
 		}
 		
 	}
@@ -113,30 +119,44 @@ QVariant Clients::data(const QModelIndex& index, int role) const
 
 int Clients::columnCount(const QModelIndex& parent) const
 {
-	return 3;
+	return 5;
 }
 
 Qt::ItemFlags Clients::flags(const QModelIndex& index) const
 {
-	if(index.column() !=2)
-
-		return index.flags() || Qt::ItemFlag::ItemIsEditable;
-	else {
-		return index.flags();
+	
+	auto column = index.column();
+	if (column < 2) {
+		auto oldFlag = QAbstractTableModel::flags(index);
+		auto newFlag = oldFlag | Qt::ItemIsEditable;
+		return newFlag;
 	}
+	else {
+		return QAbstractTableModel::flags(index);
+	}
+	//return Qt::ItemIsEditable | QAbstractTableModel::flags(index);
 	//return Qt::ItemFlags();
 }
 
 QVariant Clients::headerData(int section, Qt::Orientation orientation, int role) const
 {
-	if (section == 0 && orientation == Qt::Horizontal) {
-		return "昵称";
-	}
-	if (section == 1 && orientation == Qt::Horizontal) {
-		return "登陆名";
-	}
-	if (section == 0 && orientation == Qt::Horizontal) {
-		return "客户端识别号";
+	if (Qt::DisplayRole == role)
+	{
+		if (section == 0 && orientation == Qt::Horizontal) {
+			return QString::fromLocal8Bit("昵称");
+		}
+		if (section == 1 && orientation == Qt::Horizontal) {
+			return QString::fromLocal8Bit("登陆名");
+		}
+		if (section == 2 && orientation == Qt::Horizontal) {
+			return QString::fromLocal8Bit("客户端识别号");
+		}
+		if (section == 3 && orientation == Qt::Horizontal) {
+			return QString::fromLocal8Bit("客户端地址");
+		}
+		if (section == 4 && orientation == Qt::Horizontal) {
+			return QString::fromLocal8Bit("客户端端口号");
+		}
 	}
 	return QVariant();
 }
@@ -151,12 +171,12 @@ bool Clients::setData(const QModelIndex& index, const QVariant& value, int role)
 	if (Qt::EditRole == role) {
 		if (index.column() == 0)
 		{
-			this->clients[index.row()]->clientInfo->nickName = value.toString();
+			this->clients[index.row()]->clientInfo->setNickName( value.toString());
 			return true;
 		}
 		if (index.column() == 1)
 		{
-			this->clients[index.row()]->clientInfo->name = value.toString();
+			this->clients[index.row()]->clientInfo->setName( value.toString());
 			return true;
 		}
 		

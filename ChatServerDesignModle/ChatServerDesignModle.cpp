@@ -6,13 +6,16 @@ ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 {
 	ui.setupUi(this);
 	server->listen(QHostAddress::Any, 5666);
-	
+	ui.cListView->setModel(server->clients);
+	ui.tableView->setModel(server->clients);
+	server->setMessageHistoryViewer(ui.cMessageHistory);
 	//connect()
 	//ui.menuBar->menu
 	connect(ui.cActionServerState, &QAction::triggered, this, &ChatServerDesignModle::onChangeedServerStat);
 	server->start();
 	ui.cActionServerState->setChecked(true);
 	ui.cToolBarServerState->setCheckable(true);
+	
 }
 
 ChatServerDesignModle::~ChatServerDesignModle()

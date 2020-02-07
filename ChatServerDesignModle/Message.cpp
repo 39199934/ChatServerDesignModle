@@ -27,6 +27,13 @@ Message::Message(BodyProtocol* new_body, QObject* parent):
 	//head = &h;
 }
 
+Message::Message(MessageHead* new_head, BodyProtocol* new_body, QObject* parent):
+	head(new_head),
+	QObject(parent),
+	body(new_body)
+{
+}
+
 Message::~Message()
 {
 	cout << "del message" << endl;

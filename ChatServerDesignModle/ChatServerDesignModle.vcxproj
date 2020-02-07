@@ -88,6 +88,8 @@
     <ClCompile Include="CommandBody.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
+    <ClCompile Include="MessageCatch.cpp" />
+    <ClCompile Include="MessageFactory.cpp" />
     <ClCompile Include="MessageHead.cpp" />
     <ClCompile Include="MyClient.cpp" />
     <ClCompile Include="MyServer.cpp" />
@@ -117,10 +119,14 @@
   <ItemGroup>
     <ClInclude Include="BagProtocol.h" />
     <ClInclude Include="BodyProtocol.h" />
+    <ClInclude Include="Bodys.h" />
     <ClInclude Include="ClientInfo.h" />
     <ClInclude Include="Clients.h" />
     <ClInclude Include="CommandBody.h" />
+    <QtMoc Include="MessageCatch.h" />
+    <ClInclude Include="MessageFactory.h" />
     <ClInclude Include="MessageHead.h" />
+    <ClInclude Include="x64\Debug\uic\ui_ChatServerDesignModle.h" />
     <QtMoc Include="Message.h" />
     <ClInclude Include="ServerInfo.h" />
     <ClInclude Include="TextBody.h" />

@@ -25,3 +25,8 @@ TextBody::TextBody(QString textMessage, QString sender, QString reciver):
 	this->setDocument();
 }
 
+QString TextBody::getDescription()
+{
+	return "text message:"+ this->text;
+}
+

@@ -5,10 +5,17 @@
 class UserInfoProtocol:
 	public BagProtocol
 {
-public:
+private:
 	QString name;
 	QString nickName;
 	QString uuid;
+public:
+	QString getName();
+	QString getNickName();
+	QString getUuid();
+	void setName(QString name);
+	void setNickName(QString nickName);
+	
 protected:
 	virtual void setValue() override;////需要继承，用于从doc中转换为本类中的value数据
 	virtual void setDocument() override;///需要继承，用于从value中转换为本类中的doc数据
@@ -30,7 +37,7 @@ public:
 	//virtual void setValue() override;
 	void createUuid();
 
-	QString getUuid();
+	
 	
 
 };

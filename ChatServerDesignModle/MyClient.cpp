@@ -8,14 +8,20 @@
 MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	QTcpSocket(parent),
 	clientInfo(new ClientInfo()),
-	messages(QVector<Message *>())
+	messages(QVector<Message *>()),
+	messageCatch(new MessageCatch(this,this))
 {
 	setSocketDescriptor(socketDescriptor);
 	TextBody text("this is a msg", "server", "client");
 	Message *msg = new Message(&text, this);
 	msg->send(this);
 	messages.append(msg);
+	clientInfo->setIpAddress(this->peerAddress().toString());
+	clientInfo->setPort(this->peerPort());
 	//this->write("hello ,client");
+
+	connect(this, &MyClient::readyRead, this, &MyClient::readMessage);
+	connect(messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::appendMessage);
 }
 
 MyClient::~MyClient()
@@ -41,6 +47,18 @@ void MyClient::sendMessage(Message* msg)
 	waitForBytesWritten();
 	this->write(msg->body->toBytes());
 	waitForBytesWritten();
+}
+
+void MyClient::appendMessage(Message* msg)
+{
+	messages.push_back(msg);
+	emit signalReciveNewMessage(msg);
+}
+
+void MyClient::readMessage()
+{
+	messageCatch->start();
+	
 }
 
 

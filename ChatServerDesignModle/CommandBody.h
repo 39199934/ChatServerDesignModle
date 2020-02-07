@@ -15,6 +15,6 @@ public:
 public:
 	CommandBody();
 	CommandBody(QString command_type,QString command_name,QJsonArray command_detail, QString sender = QString(), QString reciver = QString());
-
+	virtual QString getDescription() override;
 };
 

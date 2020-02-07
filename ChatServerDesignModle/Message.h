@@ -13,6 +13,7 @@ class Message : public QObject
 public:
 	Message(QObject *parent= nullptr);
 	Message(BodyProtocol* new_body, QObject* parent = nullptr);
+	Message(MessageHead * new_head, BodyProtocol* new_body, QObject* parent = nullptr);
 	
 	Message(const Message&);
 
