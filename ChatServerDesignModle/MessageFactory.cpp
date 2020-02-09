@@ -39,9 +39,9 @@ BodyProtocol* MessageFactory::BodyFactory(QByteArray& body)
 	
 	return bodyProtocol;
 }
-/*
 Message* MessageFactory::BuildCommandMessage(CommandFactoryType type, Context* context)
 {
+	auto serverSetting = context->getServerSetting();// getServerSetting();
+	auto clients = context->getClients();
 	return nullptr;
 }
-*/

@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BagProtocol" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgCAAQAIgBgAAAAAIAAAAgAAAQAAAAAABQAAAAIAA=</HashCode>
+      <FileName>BagProtocol.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BodyProtocol" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAmAAAQAAABggAAAAAKAAAAAAAABAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>BodyProtocol.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClientInfo" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABIAggIQAAAAAAAAAAAAAAAgAAAAIAgAAIiA=</HashCode>
+      <FileName>ClientInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Clients" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQAAQAQAAAgAIAgCBAEAAgAAABAAAAAAAQAAAUAAQ=</HashCode>
+      <FileName>Clients.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandBody" Collapsed="true">
+    <Position X="5.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAKAggABIAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>CommandBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MessageFactory">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="MessageFactory::CommandFactoryType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MessageFactory.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAEAA=</HashCode>
+      <FileName>MessageFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MessageHead" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACIACIAABAAgAAAAIIAAAAAAAAAAAAAAAAAAAkAIAA=</HashCode>
+      <FileName>MessageHead.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ui_ChatServerDesignModleClass" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACBjAAEARBAACAEAAIgBAAQAIIAAkgACAEAABBA=</HashCode>
+      <FileName>x64\Debug\uic\ui_ChatServerDesignModle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerInfo" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAIgAAAAAAAAAAAAAAAAAAAIAAAAAAAIAA=</HashCode>
+      <FileName>ServerInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextBody" Collapsed="true">
+    <Position X="7.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAggAAAAAAAAAAAAAAAAAAIAAAAAAAAIAA=</HashCode>
+      <FileName>TextBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserInfoProtocol" Collapsed="true">
+    <Position X="2" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAABAgAQAAAgIAAAAAARAUABBQAAAEAAAAACA=</HashCode>
+      <FileName>UserInfoProtocol.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChatServerDesignModle" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ChatServerDesignModle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyClient" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAgAAAAQAQBAAAAAAAAAAA=</HashCode>
+      <FileName>MyClient.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyServer" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAAggAAABABgAAAgAAAgAAAAAABAEAA=</HashCode>
+      <FileName>MyServer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MessageCatch" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgABAAAAEAAAAAAAAAAAAAAAgAAAAAEAAAQAAAA=</HashCode>
+      <FileName>MessageCatch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Context">
+    <Position X="14.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAACAAAAAAgAAAAAAAAAAIAAAIgAIA=</HashCode>
+      <FileName>Context.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Message" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAQAAAAAAACAAAAQAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Message.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ServerSetting" Collapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAEAACBAAIAIAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>ServerSetting.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ui::ChatServerDesignModleClass" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>x64\Debug\uic\ui_ChatServerDesignModle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

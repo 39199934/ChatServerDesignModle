@@ -2,10 +2,9 @@
 
 MyServer::MyServer(Context* new_context, QObject* parent)
 	: QTcpServer(parent),
-	context(new_context),
 	setting(new_context->getServerSetting()),
 	clients(new_context->getClients()),
-	messageHistoryViewer(nullptr)
+	messageHistoryViewer(new_context->messageViewer)
 {
 	setting->loadSetting();
 

@@ -2,8 +2,9 @@
 #include "Message.h"
 #include "MessageHead.h"
 #include "Bodys.h"
-//#include "Context.h"
 
+#include "Context.h"
+class Context;
 class MessageFactory
 {
 public:
@@ -14,7 +15,7 @@ public:
 	};
 	static Message* fromBytes(QByteArray& head, QByteArray& body);
 	static BodyProtocol* BodyFactory(QByteArray& body);
-	//static Message* BuildCommandMessage(CommandFactoryType type, Context* context);
+	static Message* BuildCommandMessage(CommandFactoryType type, Context* context);
 	
 };
 

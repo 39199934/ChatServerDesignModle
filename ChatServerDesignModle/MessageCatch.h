@@ -4,6 +4,7 @@
 #include <QTcpSocket>
 #include "Message.h"
 #include "Bodys.h"
+//#include "MessageFactory.h"
 
 class MessageCatch : public QThread
 {

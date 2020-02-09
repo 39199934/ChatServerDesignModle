@@ -42,9 +42,37 @@ void MessageCatch::run()
 				msleep(200);
 
 			}
-			auto body = MessageFactory::BodyFactory(bodyBytes);
-			msg = new Message(head, body,parent());
-			qDebug() << body->getBag();
+			BodyProtocol* bodyProtocol = nullptr;
+			QJsonParseError error;
+			auto doc = QJsonDocument::fromJson(bodyBytes, &error);
+			auto obj = doc.object();
+			if ((error.error != QJsonParseError::NoError) || (doc.isEmpty()) || (!obj.contains("type"))) {
+
+			}
+			else {
+				auto type = obj.value("type").toString();
+				if (type == "text") {
+					bodyProtocol = new TextBody();
+					//auto textBody = new TextBody();
+					///textBody->fromBytes(body);
+					//bodyProtocol = textBody;
+				}
+				else if (type == "command") {
+					bodyProtocol = new CommandBody();
+
+				}
+				else
+				{
+
+				}
+				bodyProtocol->fromBytes(bodyBytes);
+			}
+
+
+			//return bodyProtocol;
+			//auto body = MessageFactory::BodyFactory(bodyBytes);
+			msg = new Message(head, bodyProtocol,parent());
+			qDebug() << bodyProtocol->getBag();
 		}
 
 	}
