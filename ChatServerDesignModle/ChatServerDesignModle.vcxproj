@@ -86,11 +86,13 @@
     <ClCompile Include="ClientInfo.cpp" />
     <ClCompile Include="Clients.cpp" />
     <ClCompile Include="CommandBody.cpp" />
+    <ClCompile Include="Context.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MessageCatch.cpp" />
     <ClCompile Include="MessageFactory.cpp" />
     <ClCompile Include="MessageHead.cpp" />
+    <ClCompile Include="MessageSendThread.cpp" />
     <ClCompile Include="MyClient.cpp" />
     <ClCompile Include="MyServer.cpp" />
     <ClCompile Include="ServerInfo.cpp" />
@@ -124,14 +126,19 @@
     <ClInclude Include="Clients.h" />
     <ClInclude Include="CommandBody.h" />
     <QtMoc Include="MessageCatch.h" />
+    <QtMoc Include="Context.h" />
     <ClInclude Include="MessageFactory.h" />
     <ClInclude Include="MessageHead.h" />
+    <QtMoc Include="MessageSendThread.h" />
     <ClInclude Include="x64\Debug\uic\ui_ChatServerDesignModle.h" />
     <QtMoc Include="Message.h" />
     <ClInclude Include="ServerInfo.h" />
     <ClInclude Include="TextBody.h" />
     <ClInclude Include="UserInfoProtocol.h" />
     <QtMoc Include="ServerSetting.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -12,6 +12,10 @@ public:
 	QString commandType;
 	QString commandName;
 	QJsonArray commandDetail;
+
+	enum CommandEnumType {
+		requestLogin=0, requestClientInfo, answerClientInfo, requestClientsInfo, answerClientsInfo
+	};
 public:
 	CommandBody();
 	CommandBody(QString command_type,QString command_name,QJsonArray command_detail, QString sender = QString(), QString reciver = QString());

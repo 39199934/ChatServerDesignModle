@@ -7,6 +7,7 @@
 #include <QHostAddress>
 #include <QDataStream>
 #include "MessageCatch.h"
+#include "MessageSendThread.h"
 
 class MyClient : public QTcpSocket
 {
@@ -15,6 +16,7 @@ class MyClient : public QTcpSocket
 
 private:
 	MessageCatch* messageCatch;
+	MessageSendThread* messageSendThread;
 public:
 	QVector<Message*> messages;
 	ClientInfo* clientInfo;
@@ -25,7 +27,7 @@ public:
 
 	
 signals:
-	void signalReciveNewMessage(Message*);
+	void signalClientHaveNewMessage(Message*);
 public slots:
 	void appendMessage(Message* msg);
 	void  readMessage();

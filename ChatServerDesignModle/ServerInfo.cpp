@@ -3,7 +3,7 @@
 using namespace std;
 
 ServerInfo::ServerInfo() :
-	UserInfoProtocol()
+	UserInfoProtocol(),
 {
 	this->setDocument();
 }

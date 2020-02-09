@@ -1,4 +1,5 @@
 #pragma once
+#define PLATFORM "windows"
 #include "BagProtocol.h"
 class MessageHead :
 	public BagProtocol
@@ -7,6 +8,7 @@ private:
 	QString version;
 	int size;
 	QString uuid;
+	QString platform;
 	//QString type;
 public:
 	MessageHead();

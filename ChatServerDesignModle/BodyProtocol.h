@@ -1,5 +1,6 @@
 #pragma once
 #include "BagProtocol.h"
+//#include "Context.h"
 class BodyProtocol :
 	public BagProtocol
 {
@@ -16,6 +17,7 @@ public:
 
 	void setReciver(QString new_reciver);
 	virtual QString getDescription() = 0;
+	//virtual void run(Context* context) = 0;
 protected:
 	virtual void setValue();////需要继承，用于从doc中转换为本类中的value数据 在基类中调用
 	virtual void setDocument();///需要继承，用于从value中转换为本类中的doc数据

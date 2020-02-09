@@ -76,6 +76,12 @@
     <ClCompile Include="MessageCatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MessageSendThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ChatServerDesignModle.h">
@@ -94,6 +100,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="MessageCatch.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="MessageSendThread.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Context.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -147,5 +159,8 @@
     <ClInclude Include="MessageFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

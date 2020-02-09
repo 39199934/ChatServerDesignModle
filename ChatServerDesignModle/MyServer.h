@@ -9,13 +9,15 @@
 #include "Clients.h"
 #include <QTextEdit>
 
+
 class MyServer : public QTcpServer
 {
 	Q_OBJECT
 
 private:
-	ServerSetting setting;
+	ServerSetting* setting;
 	QTextEdit* messageHistoryViewer;
+	//Context* context;
 	
 public:
 	MyServer(QObject *parent);
@@ -25,7 +27,9 @@ public:
 	void stop();
 
 	int findClientInClients(MyClient* client);
+	MyClient* findClientByIndex(int index);
 	void sendMessageToAll(Message* msg);
+	void sendMessageToClient(int index,Message* msg);
 
 	void setMessageHistoryViewer(QTextEdit* viewer);
 

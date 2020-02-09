@@ -14,7 +14,7 @@ ServerSetting::ServerSetting(QObject *parent)
 	serverAddress("127.0.0.1"),
 	serverPort(5666),
 	iniFileName("ChatServer.ini"),
-	serverInfo(ServerInfo("server","ro server"))
+	serverInfo(new ServerInfo("server","ro server"))
 {
 	loadSetting();
 }

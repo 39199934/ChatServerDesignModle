@@ -4,7 +4,8 @@ MessageHead::MessageHead():
 	BagProtocol(),
 	version("1.0"),
 	size(0),
-	uuid(BagProtocol::createUuid())
+	uuid(BagProtocol::createUuid()),
+	platform(PLATFORM)
 {
 	this->setDocument();
 }
@@ -13,7 +14,8 @@ MessageHead::MessageHead(QString v, int s):
 	BagProtocol(),
 	version(v),
 	size(s),
-	uuid(BagProtocol::createUuid())
+	uuid(BagProtocol::createUuid()),
+	platform(PLATFORM)
 {
 	this->setDocument();
 }
@@ -29,6 +31,7 @@ void MessageHead::setHead(QString v, int s)
 	this->version = v;
 	this->size = s;
 	this->setDocument();
+	
 }
 
 void MessageHead::setValue()
@@ -37,7 +40,9 @@ void MessageHead::setValue()
 	this->uuid = obj.value("uuid").toString();
 	this->version = obj.value("version").toString();
 	this->size = obj.value("size").toInt();
+	this->platform = obj.value("platform").toString();
 	this->appendToSonsValue(&obj);
+	
 
 }
 
@@ -47,6 +52,7 @@ void MessageHead::setDocument()
 	obj["version"] = this->version;
 	obj["size"] = this->size;
 	obj["uuid"] = this->uuid;
+	obj["platform"] = this->platform;
 	appendToSonsJson(&obj);
 	this->bag.setObject(obj);
 }

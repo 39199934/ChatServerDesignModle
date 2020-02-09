@@ -29,4 +29,10 @@ QString TextBody::getDescription()
 {
 	return "text message:"+ this->text;
 }
+/*
+void TextBody::run(Context* context)
+{
+	return;
+}
+*/
 

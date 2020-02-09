@@ -79,6 +79,15 @@ int Clients::findClient(MyClient* client)
 	return -1;
 }
 
+MyClient* Clients::findClientByIndex(int index)
+{
+	if (index >= this->getCount()  || index < 0 )
+	{
+		return nullptr;
+	}
+	return clients[index];
+}
+
 void Clients::disConnectToAll()
 {
 	for (int index = 0; index < clients.count(); index++) {

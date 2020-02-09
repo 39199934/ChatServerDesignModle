@@ -9,7 +9,8 @@ MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	QTcpSocket(parent),
 	clientInfo(new ClientInfo()),
 	messages(QVector<Message *>()),
-	messageCatch(new MessageCatch(this,this))
+	messageCatch(new MessageCatch(this,this)),
+	messageSendThread(new MessageSendThread(this))
 {
 	setSocketDescriptor(socketDescriptor);
 	TextBody text("this is a msg", "server", "client");
@@ -40,19 +41,14 @@ MyClient::~MyClient()
 
 void MyClient::sendMessage(Message* msg)
 {
-	messages.append(msg);
-	msg->body->setReciver( clientInfo->getUuid());
-	
-	this->write(msg->head->toBytes());
-	waitForBytesWritten();
-	this->write(msg->body->toBytes());
-	waitForBytesWritten();
+	messageSendThread->sendMessage(msg);
+	this->appendMessage(msg);
 }
 
 void MyClient::appendMessage(Message* msg)
 {
 	messages.push_back(msg);
-	emit signalReciveNewMessage(msg);
+	emit signalClientHaveNewMessage(msg);
 }
 
 void MyClient::readMessage()

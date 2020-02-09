@@ -2,11 +2,11 @@
 
 MyServer::MyServer(QObject *parent)
 	: QTcpServer(parent),
-	setting(ServerSetting()),
+	setting(new ServerSetting()),
 	clients(new Clients(parent)),
 	messageHistoryViewer(nullptr)
 {
-	setting.loadSetting();
+	setting->loadSetting();
 
 }
 
@@ -20,7 +20,7 @@ MyServer::~MyServer()
 
 void MyServer::start()
 {
-	this->listen(QHostAddress::Any, setting.serverPort);
+	this->listen(QHostAddress::Any, setting->serverPort);
 }
 
 void MyServer::stop()
@@ -34,9 +34,23 @@ void MyServer::stop()
 }
 
 
+MyClient* MyServer::findClientByIndex(int index)
+{
+	return clients->findClientByIndex(index);
+}
+
 void MyServer::sendMessageToAll(Message* msg)
 {
 	clients->sendMessageToAll(msg);
+}
+
+void MyServer::sendMessageToClient(int index, Message* msg)
+{
+	auto client = this->findClientByIndex(index);
+	if (!client) {
+		return;
+	}
+	client->sendMessage(msg);
 }
 
 void MyServer::setMessageHistoryViewer(QTextEdit* viewer)
@@ -56,6 +70,6 @@ void MyServer::incomingConnection(qintptr socketDescriptor)
 {
 	auto client = clients->appendClient(socketDescriptor);
 	client->write("hello client");
-	connect(client, &MyClient::signalReciveNewMessage, this, &MyServer::slotReciveMessage);
+	connect(client, &MyClient::signalClientHaveNewMessage, this, &MyServer::slotReciveMessage);
 	
 }
