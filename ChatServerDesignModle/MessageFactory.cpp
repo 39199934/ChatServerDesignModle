@@ -39,3 +39,9 @@ BodyProtocol* MessageFactory::BodyFactory(QByteArray& body)
 	
 	return bodyProtocol;
 }
+/*
+Message* MessageFactory::BuildCommandMessage(CommandFactoryType type, Context* context)
+{
+	return nullptr;
+}
+*/

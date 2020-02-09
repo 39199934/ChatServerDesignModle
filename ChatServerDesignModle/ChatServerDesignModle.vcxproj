@@ -86,6 +86,7 @@
     <ClCompile Include="ClientInfo.cpp" />
     <ClCompile Include="Clients.cpp" />
     <ClCompile Include="CommandBody.cpp" />
+    <ClCompile Include="Context.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MessageCatch.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Clients.h" />
     <ClInclude Include="CommandBody.h" />
     <QtMoc Include="MessageCatch.h" />
+    <QtMoc Include="Context.h" />
     <ClInclude Include="MessageFactory.h" />
     <ClInclude Include="MessageHead.h" />
     <ClInclude Include="x64\Debug\uic\ui_ChatServerDesignModle.h" />

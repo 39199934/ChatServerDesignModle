@@ -8,18 +8,21 @@
 #include "TextBody.h"
 #include "Clients.h"
 #include <QTextEdit>
+#include "Context.h"
 
 class MyServer : public QTcpServer
 {
 	Q_OBJECT
 
 private:
-	ServerSetting setting;
+	ServerSetting * setting;
+	Clients* clients;
 	QTextEdit* messageHistoryViewer;
+	Context* context;
 	
 public:
-	MyServer(QObject *parent);
-	~MyServer();
+	MyServer(Context* new_context,QObject *parent);
+	~MyServer();	
 
 	void start();
 	void stop();
@@ -29,7 +32,7 @@ public:
 
 	void setMessageHistoryViewer(QTextEdit* viewer);
 
-	Clients* clients;
+	
 public slots:
 
 	void slotReciveMessage(Message* msg);

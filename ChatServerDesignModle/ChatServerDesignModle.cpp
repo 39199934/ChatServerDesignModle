@@ -2,12 +2,15 @@
 
 ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 	: QMainWindow(parent),
-	server(new MyServer(this))
+	context(Context::getContext(this))
 {
+	
+	server = new MyServer(context, this);
 	ui.setupUi(this);
+	context->setMessageViewr(ui.cMessageHistory);
 	server->listen(QHostAddress::Any, 5666);
-	ui.cListView->setModel(server->clients);
-	ui.tableView->setModel(server->clients);
+	ui.cListView->setModel(context->getClients());
+	ui.tableView->setModel(context->getClients());
 	server->setMessageHistoryViewer(ui.cMessageHistory);
 	//connect()
 	//ui.menuBar->menu

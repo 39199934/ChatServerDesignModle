@@ -1,12 +1,13 @@
 #include "MyServer.h"
 
-MyServer::MyServer(QObject *parent)
+MyServer::MyServer(Context* new_context, QObject* parent)
 	: QTcpServer(parent),
-	setting(ServerSetting()),
-	clients(new Clients(parent)),
+	context(new_context),
+	setting(new_context->getServerSetting()),
+	clients(new_context->getClients()),
 	messageHistoryViewer(nullptr)
 {
-	setting.loadSetting();
+	setting->loadSetting();
 
 }
 
@@ -20,7 +21,7 @@ MyServer::~MyServer()
 
 void MyServer::start()
 {
-	this->listen(QHostAddress::Any, setting.serverPort);
+	this->listen(QHostAddress::Any, setting->serverPort);
 }
 
 void MyServer::stop()

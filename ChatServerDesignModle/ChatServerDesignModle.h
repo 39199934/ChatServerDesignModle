@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_ChatServerDesignModle.h"
 #include "MyServer.h"
+#include "Context.h"
 
 class ChatServerDesignModle : public QMainWindow
 {
@@ -11,6 +12,8 @@ class ChatServerDesignModle : public QMainWindow
 public:
 	ChatServerDesignModle(QWidget *parent = Q_NULLPTR);
 	MyServer* server;
+	Context* context;
+	
 	~ChatServerDesignModle();
 	
 public slots:
