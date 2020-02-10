@@ -1,4 +1,5 @@
 #include "BagProtocol.h"
+#include <QDebug>
 
 BagProtocol::BagProtocol():
 	bag(QJsonDocument())
@@ -27,11 +28,13 @@ void BagProtocol::fromJson(QJsonDocument doc)
 {
 	this->bag = doc;
 	this->setValue();
+	
 }
 
 void BagProtocol::fromJson(QJsonObject obj)
 {
 	this->bag.setObject(obj);
+	qDebug() << obj;
 	fromJson(this->bag);
 }
 

@@ -39,6 +39,22 @@ BodyProtocol* MessageFactory::BodyFactory(QByteArray& body)
 	
 	return bodyProtocol;
 }
+Message* MessageFactory::BuildTextMessage(QString text,int clientIndex)
+{
+	auto context = Context::getContext();
+	QString reciver;
+	if (clientIndex < 0) {
+		reciver = "all";
+	}
+	else
+	{
+		reciver = context->getClients()->findClient(clientIndex)->clientInfo->getUuid();
+	}
+	auto sender = context->getServerSetting()->serverInfo->getUuid();
+	auto body = new TextBody(text, sender,reciver );
+	auto msg = new Message(body);
+	return msg;
+}
 Message* MessageFactory::BuildCommandMessage(CommandFactoryType type, Context* context)
 {
 	auto serverSetting = context->getServerSetting();// getServerSetting();

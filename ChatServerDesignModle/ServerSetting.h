@@ -14,7 +14,7 @@ private:
 public:
 	QString serverAddress;
 	int serverPort;
-	ServerInfo serverInfo;
+	ServerInfo *serverInfo;
 
 	ServerSetting(const ServerSetting& newServer);
 	ServerSetting(QObject *parent = nullptr);

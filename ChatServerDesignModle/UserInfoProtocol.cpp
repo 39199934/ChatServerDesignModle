@@ -71,7 +71,10 @@ void UserInfoProtocol::createUuid()
 {
 	this->uuid = BagProtocol::createUuid();
 	auto obj = getBag().object();
+	qDebug() << this->bag.toJson();
 	obj["uuid"] = this->uuid;
+	qDebug() << QJsonDocument(obj).toJson();
+
 	fromJson(obj);
 
 }

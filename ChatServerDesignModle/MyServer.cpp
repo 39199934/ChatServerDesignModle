@@ -13,9 +13,6 @@ MyServer::MyServer(Context* new_context, QObject* parent)
 MyServer::~MyServer()
 {
 
-	if (clients) {
-		delete clients;
-	}
 }
 
 void MyServer::start()
@@ -56,6 +53,6 @@ void MyServer::incomingConnection(qintptr socketDescriptor)
 {
 	auto client = clients->appendClient(socketDescriptor);
 	client->write("hello client");
-	connect(client, &MyClient::signalReciveNewMessage, this, &MyServer::slotReciveMessage);
+	connect(client, &MyClient::signalClientHaveNewMessage, this, &MyServer::slotReciveMessage);
 	
 }

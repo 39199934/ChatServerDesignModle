@@ -1,24 +1,32 @@
 #include "Context.h"
 
 Context::Context(QObject *parent)
-	:QObject(parent)
+	:QObject(parent),
+	clients(new Clients(parent)),
+	serverSetting(new ServerSetting(parent))
 {
 	
 }
 
 Context::~Context()
 {
-	if (context) {
-		context = nullptr;
+	
+	if (serverSetting) {
+		delete serverSetting;
 	}
+	if (clients) {
+		delete clients;
+	}
+	/*if (context) {
+		delete context;
+		//context = nullptr;
+	}*/
 }
 
 Context* Context::getContext(QObject* parent)
 {
 	if (context == nullptr) {
 		context = new Context(parent);
-		clients = new Clients(parent);
-		serverSetting = new ServerSetting(parent);
 	}
 	return context;
 }
@@ -38,5 +46,3 @@ void Context::setMessageViewr(QTextEdit* viewer)
 	this->messageViewer = viewer;
 }
 Context* Context::context = nullptr;
-Clients* Context::clients = nullptr;
-ServerSetting* Context::serverSetting = nullptr;

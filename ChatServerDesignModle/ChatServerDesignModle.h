@@ -4,7 +4,10 @@
 #include "ui_ChatServerDesignModle.h"
 #include "MyServer.h"
 #include "Context.h"
+#include "MessageFactory.h"
+#include <QMessageBox>
 
+//class MessageFactory;
 class ChatServerDesignModle : public QMainWindow
 {
 	Q_OBJECT
@@ -15,9 +18,11 @@ public:
 	Context* context;
 	
 	~ChatServerDesignModle();
+	int getCurrentSelectedIndex();
 	
 public slots:
 	void onChangeedServerStat();
+	void onClickedSendMessage();
 
 private:
 	Ui::ChatServerDesignModleClass ui;

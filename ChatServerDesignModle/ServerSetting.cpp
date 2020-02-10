@@ -14,9 +14,9 @@ ServerSetting::ServerSetting(QObject *parent)
 	serverAddress("127.0.0.1"),
 	serverPort(5666),
 	iniFileName("ChatServer.ini"),
-	serverInfo(ServerInfo("server","ro server"))
+	serverInfo(new ServerInfo("server","ro server"))
 {
-	loadSetting();
+	//loadSetting();
 }
 
 ServerSetting::~ServerSetting()
@@ -30,7 +30,8 @@ void ServerSetting::loadSetting()
 	this->serverAddress = set.value("address", serverAddress).toString();
 	this->serverPort = set.value("port", serverPort).toInt();
 	auto bytes = set.value("info", QByteArray()).toByteArray();
-	this->serverInfo.fromBytes(bytes);
+	this->serverInfo->fromBytes(bytes);
+	
 	
 	return ;
 }
@@ -40,7 +41,7 @@ void ServerSetting::saveSetting()
 	QSettings set(iniFileName, QSettings::IniFormat);
 	set.setValue("address", serverAddress);
 	set.setValue("port", serverPort);
-	set.setValue("info", serverInfo.toBytes());
+	set.setValue("info", serverInfo->toBytes());
 	
 
 }

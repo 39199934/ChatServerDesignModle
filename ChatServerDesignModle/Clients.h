@@ -24,7 +24,7 @@ public:
 	bool removeClient(MyClient* client);
 	bool replacClient(int index, MyClient* new_client);
 	int  findClient(MyClient* client);//找到返回索引值 ，没找到返回-1
-
+	MyClient* findClient(int index);
 
 	void disConnectToAll();
 

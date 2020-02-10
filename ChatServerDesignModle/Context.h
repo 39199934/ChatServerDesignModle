@@ -18,10 +18,28 @@ public:
 	QTextEdit* messageViewer;
 	void setMessageViewr(QTextEdit* viewer);
 private:
+	class CGarbo //它的唯一工作就是在析构函数中删除CSingleton的实例
+	{
+	public:
+		~CGarbo()
+
+		{
+
+			if (Context::context)
+
+				delete Context::context;
+
+		}
+
+	};
+private:
 	Context(QObject* parent);
 	static Context* context;
-	static Clients* clients;
-	static ServerSetting* serverSetting;
+	Clients* clients;
+	ServerSetting* serverSetting;
+	
+
+	static CGarbo Garbo;
 
 
 

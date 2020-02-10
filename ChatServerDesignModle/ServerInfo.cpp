@@ -11,6 +11,7 @@ ServerInfo::ServerInfo() :
 ServerInfo::ServerInfo(QString name, QString nick_name):
 	UserInfoProtocol(name,nick_name)
 {
+	this->setDocument();
 	createUuid();
 	//setUserInfoProtocol(name, nick_name);
 	this->setDocument();

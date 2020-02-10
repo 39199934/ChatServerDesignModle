@@ -15,6 +15,8 @@ Clients::Clients(QObject* parent):
 {
 }
 
+
+
 int Clients::getCount()
 {
 	return clients.count();
@@ -77,6 +79,15 @@ int Clients::findClient(MyClient* client)
 		}
 	}
 	return -1;
+}
+
+MyClient* Clients::findClient(int index)
+{
+	if (index >= clients.count() || index < 0) {
+		return nullptr;
+	}
+	return clients[index];
+	//return nullptr;
 }
 
 void Clients::disConnectToAll()

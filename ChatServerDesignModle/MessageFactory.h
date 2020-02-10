@@ -4,7 +4,7 @@
 #include "Bodys.h"
 
 #include "Context.h"
-class Context;
+
 class MessageFactory
 {
 public:
@@ -15,6 +15,7 @@ public:
 	};
 	static Message* fromBytes(QByteArray& head, QByteArray& body);
 	static BodyProtocol* BodyFactory(QByteArray& body);
+	static Message* BuildTextMessage(QString text,int clientIndex);
 	static Message* BuildCommandMessage(CommandFactoryType type, Context* context);
 	
 };
