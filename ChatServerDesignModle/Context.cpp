@@ -15,7 +15,7 @@ Context::~Context()
 		delete serverSetting;
 	}
 	if (clients) {
-		delete clients;
+		delete clients; 
 	}
 	/*if (context) {
 		delete context;

@@ -32,6 +32,7 @@ private:
 		}
 
 	};
+	static CGarbo Garbo;
 private:
 	Context(QObject* parent);
 	static Context* context;
@@ -39,7 +40,7 @@ private:
 	ServerSetting* serverSetting;
 	
 
-	static CGarbo Garbo;
+	
 
 
 

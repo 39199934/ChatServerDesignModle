@@ -2,7 +2,7 @@
 
 ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 	: QMainWindow(parent),
-	context(Context::getContext(this))
+	context(Context::getContext(parent))
 {
 	
 	server = new MyServer(context, this);
@@ -27,9 +27,12 @@ ChatServerDesignModle::~ChatServerDesignModle()
 	//serve
 	
 	delete server;
-	/*if (Context::context) {
-		delete context;
-	}*/
+	if (context) {
+		//delete context->getServerSetting();
+		context->deleteLater();
+		//delete context;
+	}
+	
 }
 
 int ChatServerDesignModle::getCurrentSelectedIndex()
