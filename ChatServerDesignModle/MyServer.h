@@ -6,9 +6,8 @@
 #include <QVector>
 #include "Message.h"
 #include "TextBody.h"
-#include "Clients.h"
 #include <QTextEdit>
-#include "Context.h"
+
 
 class MyServer : public QTcpServer
 {
@@ -16,21 +15,21 @@ class MyServer : public QTcpServer
 
 private:
 	ServerSetting * setting;
-	Clients* clients;
+	//Clients* clients;
 	QTextEdit* messageHistoryViewer;
-	Context* context;
+	
 	
 public:
-	MyServer(Context* new_context,QObject *parent);
+	MyServer(ServerSetting* serverSetting,QObject *parent);
 	~MyServer();	
 
 	void start();
 	void stop();
 
-	int findClientInClients(MyClient* client);
-	void sendMessageToAll(Message* msg);
+	//int findClientInClients(MyClient* client);
+	//void sendMessageToAll(Message* msg);
 
-	void setMessageHistoryViewer(QTextEdit* viewer);
+	//void setMessageHistoryViewer(QTextEdit* viewer);
 
 	
 public slots:

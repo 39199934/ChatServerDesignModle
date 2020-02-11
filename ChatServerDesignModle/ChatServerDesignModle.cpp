@@ -2,21 +2,21 @@
 
 ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 	: QMainWindow(parent),
-	context(Context::getContext(parent))
+	context(Context::getContext(this))
 {
 	
-	server = new MyServer(context, this);
+	//server = new MyServer(context, this);
 	ui.setupUi(this);
 	context->setMessageViewr(ui.cMessageHistory);
-	server->listen(QHostAddress::Any, 5666);
+	//server->listen(QHostAddress::Any, 5666);
 	ui.cListView->setModel(context->getClients());
 	ui.tableView->setModel(context->getClients());
-	server->setMessageHistoryViewer(ui.cMessageHistory);
+	//server->setMessageHistoryViewer(ui.cMessageHistory);
 	//connect()
 	//ui.menuBar->menu
 	connect(ui.cActionServerState, &QAction::triggered, this, &ChatServerDesignModle::onChangeedServerStat);
 	connect(ui.cBtnSend, &QPushButton::clicked, this, &ChatServerDesignModle::onClickedSendMessage);
-	server->start();
+	//server->start();
 	ui.cActionServerState->setChecked(true);
 	ui.cToolBarServerState->setCheckable(true);
 	
@@ -25,12 +25,8 @@ ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 ChatServerDesignModle::~ChatServerDesignModle()
 {
 	//serve
-	
-	delete server;
 	if (context) {
-		//delete context->getServerSetting();
-		context->deleteLater();
-		//delete context;
+		delete context;
 	}
 	
 }
@@ -77,7 +73,7 @@ void ChatServerDesignModle::onClickedSendMessage()
 
 void ChatServerDesignModle::onChangeedServerStat()
 {
-	if (server->isListening()) {
+	if (context->server->isListening()) {
 		server->stop();
 		ui.cActionServerState->setChecked(false);
 		ui.cToolBarServerState->setCheckable(false);

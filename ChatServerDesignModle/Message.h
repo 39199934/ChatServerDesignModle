@@ -4,7 +4,7 @@
 #include "MessageHead.h"
 #include "BodyProtocol.h"
 #include <QTcpSocket>
-#include <QThread>
+
 
 class Message : public QObject
 {

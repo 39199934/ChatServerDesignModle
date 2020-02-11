@@ -39,25 +39,25 @@ BodyProtocol* MessageFactory::BodyFactory(QByteArray& body)
 	
 	return bodyProtocol;
 }
-Message* MessageFactory::BuildTextMessage(QString text,int clientIndex)
+Message* MessageFactory::BuildTextMessage(QString text, ServerInfo* serverInfo, ClientInfo* clientInfo)
 {
-	auto context = Context::getContext();
+	
 	QString reciver;
-	if (clientIndex < 0) {
+	if (clientInfo == nullptr) {
 		reciver = "all";
 	}
 	else
 	{
-		reciver = context->getClients()->findClient(clientIndex)->clientInfo->getUuid();
+		reciver = clientInfo->getUuid();
 	}
-	auto sender = context->getServerSetting()->serverInfo->getUuid();
+	auto sender = serverInfo->getUuid();
 	auto body = new TextBody(text, sender,reciver );
 	auto msg = new Message(body);
 	return msg;
 }
-Message* MessageFactory::BuildCommandMessage(CommandFactoryType type, Context* context)
+Message* MessageFactory::BuildCommandMessage(CommandFactoryType type, ServerInfo* serverInfo, ClientInfo* clientInfo, QVector<UserInfoProtocol*> clientInfos)
 {
-	auto serverSetting = context->getServerSetting();// getServerSetting();
-	auto clients = context->getClients();
+	//auto serverSetting = context->getServerSetting();// getServerSetting();
+	//auto clients = context->getClients();
 	return nullptr;
 }

@@ -1,12 +1,14 @@
 #include "MyServer.h"
 
-MyServer::MyServer(Context* new_context, QObject* parent)
+MyServer::MyServer(ServerSetting * setting, QObject* parent)
 	: QTcpServer(parent),
+	setting(setting)
+	/*,
 	setting(new_context->getServerSetting()),
 	clients(new_context->getClients()),
-	messageHistoryViewer(new_context->messageViewer)
+	messageHistoryViewer(new_context->messageViewer)*/
 {
-	setting->loadSetting();
+	//setting->loadSetting();
 
 }
 
@@ -22,15 +24,15 @@ void MyServer::start()
 
 void MyServer::stop()
 {
-	TextBody text("server is closed", "server", "all");
-	Message *msg = new Message(&text, this);
-	sendMessageToAll(msg);
-	clients->disConnectToAll();
+	//TextBody text("server is closed", "server", "all");
+	//Message *msg = new Message(&text, this);
+	//sendMessageToAll(msg);
+	//clients->disConnectToAll();
 	
 	this->close();
 }
 
-
+/*
 void MyServer::sendMessageToAll(Message* msg)
 {
 	clients->sendMessageToAll(msg);
@@ -40,7 +42,7 @@ void MyServer::setMessageHistoryViewer(QTextEdit* viewer)
 {
 	this->messageHistoryViewer = viewer;
 }
-
+*/
 void MyServer::slotReciveMessage(Message* msg)
 {
 	if (!messageHistoryViewer) {

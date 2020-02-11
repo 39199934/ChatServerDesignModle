@@ -1,6 +1,6 @@
 #pragma once
 #include "UserInfoProtocol.h"
-#include "Message.h"
+
 class ClientInfo :
 	public UserInfoProtocol
 {

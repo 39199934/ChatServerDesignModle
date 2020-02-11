@@ -81,6 +81,15 @@ int Clients::findClient(MyClient* client)
 	return -1;
 }
 
+QVector<ClientInfo*> Clients::getClientsInfo()
+{
+	QVector<ClientInfo*> clientInfos = QVector<ClientInfo*>();
+	for each(auto client in clients) {
+		clientInfos.pushBack(client->clientInfo);
+	}
+	return clientInfos;
+}
+
 MyClient* Clients::findClient(int index)
 {
 	if (index >= clients.count() || index < 0) {
