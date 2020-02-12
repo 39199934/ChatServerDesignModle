@@ -1,8 +1,8 @@
 #include "MyServer.h"
 
-MyServer::MyServer(ServerSetting * setting, QObject* parent)
+MyServer::MyServer(ServerInfo * info, QObject* parent)
 	: QTcpServer(parent),
-	setting(setting)
+	info(info)
 	/*,
 	setting(new_context->getServerSetting()),
 	clients(new_context->getClients()),
@@ -19,7 +19,7 @@ MyServer::~MyServer()
 
 void MyServer::start()
 {
-	this->listen(QHostAddress::Any, setting->serverPort);
+	this->listen(QHostAddress::Any, info->serverPort);
 }
 
 void MyServer::stop()
@@ -53,8 +53,7 @@ void MyServer::slotReciveMessage(Message* msg)
 
 void MyServer::incomingConnection(qintptr socketDescriptor)
 {
-	auto client = clients->appendClient(socketDescriptor);
-	client->write("hello client");
-	connect(client, &MyClient::signalClientHaveNewMessage, this, &MyServer::slotReciveMessage);
+	
+	emit signalNewClientConnected(socketDescriptor);
 	
 }

@@ -1,7 +1,7 @@
 #include "MessageCatch.h"
 
-MessageCatch::MessageCatch(QTcpSocket* socket, QObject* parent )
-	: QThread(parent),
+MessageCatch::MessageCatch(QTcpSocket* socket)
+	: QThread(socket),
 	socket(socket),
 	isFinished(false)
 {
@@ -13,13 +13,14 @@ MessageCatch::~MessageCatch()
 
 void MessageCatch::run()
 {
+	qDebug() << "in message catch" << QThread::currentThread();
 	QByteArray bytes;
 	bytes = socket->readAll();
 	Message* msg = nullptr;
 	QJsonDocument doc = QJsonDocument::fromJson(bytes);
 	if (doc.isEmpty()) {
 		TextBody* text = new TextBody(QString::fromLocal8Bit(bytes),"noSender", "noReciver");
-		msg = new Message(text, this);
+		msg = new Message(text, socket);
 		
 	}
 	else {

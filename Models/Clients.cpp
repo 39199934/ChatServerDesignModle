@@ -17,6 +17,8 @@ Clients::Clients(QObject* parent):
 
 
 
+
+
 int Clients::getCount()
 {
 	return clients.count();
@@ -33,15 +35,16 @@ MyClient* Clients::appendClient(MyClient* client)
 
 	beginInsertRows(QModelIndex(), 0, clients.count());
 	clients.append(client);
-	endInsertRows();
 	
+	endInsertRows();
+	connect(client, &MyClient::signalClientHaveNewMessage, this, &Clients::slotClientHasNewMessage);
 	return client;
 }
 
 MyClient* Clients::appendClient(qintptr socketDescriptor)
 {
 	
-	MyClient* client = new MyClient(socketDescriptor, nullptr);
+	MyClient* client = new MyClient(socketDescriptor, this);
 	
 	return appendClient(client);
 	
@@ -81,11 +84,22 @@ int Clients::findClient(MyClient* client)
 	return -1;
 }
 
+MyClient* Clients::getClient(int index)
+{
+	if (index >= 0 && index < clients.count()) {
+		return clients[index];
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
 QVector<ClientInfo*> Clients::getClientsInfo()
 {
 	QVector<ClientInfo*> clientInfos = QVector<ClientInfo*>();
 	for each(auto client in clients) {
-		clientInfos.pushBack(client->clientInfo);
+		clientInfos.push_back(client->clientInfo);
 	}
 	return clientInfos;
 }
@@ -97,6 +111,17 @@ MyClient* Clients::findClient(int index)
 	}
 	return clients[index];
 	//return nullptr;
+}
+
+ClientInfo* Clients::getClientInfo(int index)
+{
+	auto client = findClient(index);
+	if (!client) {
+		return nullptr;
+	}
+	else {
+		return client->clientInfo;
+	}
 }
 
 void Clients::disConnectToAll()
@@ -111,6 +136,17 @@ void Clients::sendMessageToAll(Message* msg)
 	for (int index= 0; index < clients.count(); index++) {
 		clients.at(index)->sendMessage(msg);
 	}
+}
+
+bool Clients::sendMessage(int index, Message* msg)
+{
+	auto client = findClient(index);
+	if (client) {
+		client->sendMessage(msg);
+		return true;
+	}
+	return false;
+
 }
 
 QVariant Clients::data(const QModelIndex& index, int role) const
@@ -202,4 +238,11 @@ bool Clients::setData(const QModelIndex& index, const QVariant& value, int role)
 		
 	}
 	return false;
+}
+
+void Clients::slotClientHasNewMessage(Message* msg)
+{
+	auto client = static_cast<MyClient*>(sender());
+	emit signalClientHasNewMessage(client, msg);
+	//emit ssss();
 }

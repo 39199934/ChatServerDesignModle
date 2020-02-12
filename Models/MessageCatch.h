@@ -16,7 +16,7 @@ private:
 	QTcpSocket* socket;
 public:
 	bool isFinished;
-	MessageCatch(QTcpSocket * socket,QObject *parent = nullptr);
+	MessageCatch(QTcpSocket * socket);
 	~MessageCatch();
 protected:
 	virtual void run() override;

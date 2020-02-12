@@ -9,7 +9,7 @@ MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	QTcpSocket(parent),
 	clientInfo(new ClientInfo()),
 	messages(QVector<Message *>()),
-	messageCatch(new MessageCatch(this,this)),
+	messageCatch(new MessageCatch(this)),
 	messageSendThread(new MessageSendThread(this))
 {
 	setSocketDescriptor(socketDescriptor);
@@ -56,6 +56,7 @@ void MyClient::appendMessage(Message* msg)
 
 void MyClient::readMessage()
 {
+	qDebug() <<"in Myclient"<< QThread::currentThread();
 	messageCatch->start();
 	
 }

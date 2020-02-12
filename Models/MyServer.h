@@ -1,12 +1,13 @@
 #pragma once
 
 #include <QTcpServer>
-#include "ServerSetting.h"
+#include "ServerInfo.h"
 #include "MyClient.h"
 #include <QVector>
 #include "Message.h"
 #include "TextBody.h"
 #include <QTextEdit>
+#include "Clients.h"
 
 
 class MyServer : public QTcpServer
@@ -14,13 +15,13 @@ class MyServer : public QTcpServer
 	Q_OBJECT
 
 private:
-	ServerSetting * setting;
+	ServerInfo* info;
 	//Clients* clients;
 	QTextEdit* messageHistoryViewer;
 	
 	
 public:
-	MyServer(ServerSetting* serverSetting,QObject *parent);
+	MyServer(ServerInfo* info,QObject *parent);
 	~MyServer();	
 
 	void start();
@@ -35,6 +36,9 @@ public:
 public slots:
 
 	void slotReciveMessage(Message* msg);
+
+signals:
+	void signalNewClientConnected(qintptr socketDescriptor);
 protected:
 	virtual void incomingConnection(qintptr socketDescriptor) override;
 };

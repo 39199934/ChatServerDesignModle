@@ -7,7 +7,7 @@ ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 	
 	//server = new MyServer(context, this);
 	ui.setupUi(this);
-	context->setMessageViewr(ui.cMessageHistory);
+	//context->setMessageViewr(ui.cMessageHistory);
 	//server->listen(QHostAddress::Any, 5666);
 	ui.cListView->setModel(context->getClients());
 	ui.tableView->setModel(context->getClients());
@@ -16,6 +16,10 @@ ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 	//ui.menuBar->menu
 	connect(ui.cActionServerState, &QAction::triggered, this, &ChatServerDesignModle::onChangeedServerStat);
 	connect(ui.cBtnSend, &QPushButton::clicked, this, &ChatServerDesignModle::onClickedSendMessage);
+	connect(ui.cBtnAddMore, &QPushButton::clicked, this, &ChatServerDesignModle::onClickedAddMore);
+
+
+	connect(context, &Context::signalNeedRefreshMessageViewer, this, &ChatServerDesignModle::slotNeedRefreshMessageViewer);//  ChatServerDesignModle:slotNeedRefreshMessageViewer);
 	//server->start();
 	ui.cActionServerState->setChecked(true);
 	ui.cToolBarServerState->setCheckable(true);
@@ -33,54 +37,54 @@ ChatServerDesignModle::~ChatServerDesignModle()
 
 int ChatServerDesignModle::getCurrentSelectedIndex()
 {
+	qDebug() << QThread::currentThread();
 	auto sel = ui.cListView->selectionModel();
 	if (!sel->hasSelection()) {
 		return -1;
 	}
-	
-	auto row = sel->selectedIndexes()[0].row();
+	auto indexs = sel->selectedIndexes();
+	auto row = indexs.at(0).row();
+	//auto row = sel->selectedIndexes()[0].row();
 	
 	return row;
 }
 
 void ChatServerDesignModle::onClickedSendMessage()
 {
-	if (context->getClients()->getCount() <= 0) {
-		QMessageBox::warning(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("对不起，没有客户端"));
-		return;
-	}
 	auto row = getCurrentSelectedIndex();
 	auto text = ui.cEditForSend->text();
-	auto msg = MessageFactory::BuildTextMessage(text, row);
-	if (row == -1) {
-		auto rt = QMessageBox::warning(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("对不起，你没有选择发送给谁，消息是否发送给所有客户端？"), QMessageBox::StandardButton::Cancel, QMessageBox::StandardButton::Apply);
-		if (rt == QMessageBox::StandardButton::Apply) {
-			server->sendMessageToAll(msg);
-		}
-		else {
-			return;
-		}
-	}
-	else {
-		context->getClients()->findClient(row)->sendMessage(msg);
-		ui.cEditForSend->clear();
-	}
+	context->sendTextMessage(row, text);
 	
 	
 
 	//auto text = ui.
 }
 
+void ChatServerDesignModle::onClickedAddMore()
+{
+}
+
+void ChatServerDesignModle::slotNeedRefreshMessageViewer(MyClient* client, Message * msg)
+{
+	qDebug() << "in slot need refresh" << QThread::currentThread();
+	auto row = this->getCurrentSelectedIndex();
+	auto cSel = context->getClient(row);
+	//auto cSel = context->getClients()->findClient(getCurrentSelectedIndex());
+	if (cSel == client) {
+		context->refreshMessages(ui.cMessageHistory, client);
+	}
+}
+
 void ChatServerDesignModle::onChangeedServerStat()
 {
-	if (context->server->isListening()) {
-		server->stop();
+	if (context->serverIsListening()) {
+		context->closeServer();
 		ui.cActionServerState->setChecked(false);
 		ui.cToolBarServerState->setCheckable(false);
 
 	}
 	else {
-		server->start();
+		context->startServer();
 		ui.cActionServerState->setChecked(true);
 		ui.cToolBarServerState->setCheckable(true);
 	}

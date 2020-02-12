@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChatServerDesignModle", "ChatServerDesignModle\ChatServerDesignModle.vcxproj", "{F747F0AD-9542-4981-8EA6-74EEF47A3C37}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChatClientDesignModle", "ChatClientDesignModle\ChatClientDesignModle.vcxproj", "{98268AD3-8054-47C1-9FF5-22B3999E04E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -27,6 +29,16 @@ Global
 		{F747F0AD-9542-4981-8EA6-74EEF47A3C37}.Release|x64.Build.0 = Debug|x64
 		{F747F0AD-9542-4981-8EA6-74EEF47A3C37}.Release|x86.ActiveCfg = Debug|Win32
 		{F747F0AD-9542-4981-8EA6-74EEF47A3C37}.Release|x86.Build.0 = Debug|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Debug|Win32.Build.0 = Debug|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Debug|x64.ActiveCfg = Debug|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Debug|x86.ActiveCfg = Debug|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Debug|x86.Build.0 = Debug|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Release|Win32.ActiveCfg = Release|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Release|Win32.Build.0 = Release|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Release|x64.ActiveCfg = Release|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Release|x86.ActiveCfg = Release|Win32
+		{98268AD3-8054-47C1-9FF5-22B3999E04E2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

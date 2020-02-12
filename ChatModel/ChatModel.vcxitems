@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{717b8f27-8e16-4d3b-aa90-b85feb0ef552}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\ChatServerDesignModle\BagProtocol.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\ChatServerDesignModle\BodyProtocol.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\ChatServerDesignModle\Bodys.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\ChatServerDesignModle\ClientInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)..\ChatServerDesignModle\CommandBody.h" />
+  </ItemGroup>
+</Project>

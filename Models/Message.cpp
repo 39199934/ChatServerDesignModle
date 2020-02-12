@@ -8,7 +8,7 @@ Message::Message(QObject *parent)
 	head(nullptr),
 	body(nullptr)
 {
-	
+	//cout << "hello" << endl;
 }
 Message::Message(const Message& newM):
 	QObject(nullptr),
