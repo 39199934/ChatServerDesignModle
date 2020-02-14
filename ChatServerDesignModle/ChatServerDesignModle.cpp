@@ -66,6 +66,7 @@ void ChatServerDesignModle::onClickedSendMessage()
 
 void ChatServerDesignModle::onClickedAddMore()
 {
+	qDebug() << "in UI Thread:" << QThread::currentThread();
 }
 
 void ChatServerDesignModle::slotNeedRefreshMessageViewer(MyClient& client, Message  msg)

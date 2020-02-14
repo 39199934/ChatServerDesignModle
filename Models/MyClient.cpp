@@ -10,7 +10,8 @@ MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	messages(Messages(this)),
 	messageSendThread(MessageSendThread(this))
 {
-	setSocketDescriptor(socketDescriptor);
+	QTcpSocket::QTcpSocket(this);
+	auto rt = setSocketDescriptor(socketDescriptor);
 
 	connect(this, &MyClient::readyRead, this, &MyClient::readMessage);
 	//connect(messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::appendMessage);
@@ -68,6 +69,7 @@ MyClient::~MyClient()
 		}
 		
 	}
+	this->close();
 	
 }
 
@@ -104,7 +106,7 @@ void MyClient::startCatchMessage()
 	QJsonDocument doc = QJsonDocument::fromJson(bytes);
 	if (doc.isEmpty()) {
 		
-		msg = Message(new TextBody(QString::fromLocal8Bit(bytes), "noSender", "noReciver"), this);
+		msg = Message(new TextBody(QString::fromLocal8Bit(bytes), "noSender", "noReciver"), nullptr);
 
 	}
 	else {
@@ -118,6 +120,7 @@ void MyClient::startCatchMessage()
 			head.fromBytes(bytes);
 			int readedSize = 0;
 			QByteArray bodyBytes;
+			qDebug() << "In Catch Thread:" << QThread::currentThread();
 			while (readedSize < size) {
 				if (isReadable()) {
 					auto b = readAll();

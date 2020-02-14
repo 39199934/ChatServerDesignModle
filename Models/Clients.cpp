@@ -41,6 +41,8 @@ MyClient* Clients::appendClient(MyClient* client)
 	return &client;
 }
 */
+
+//添加新客户端
 MyClient* Clients::appendClient(qintptr socketDescriptor)
 {
 	

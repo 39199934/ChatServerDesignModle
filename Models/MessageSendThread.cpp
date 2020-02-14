@@ -31,6 +31,7 @@ void MessageSendThread::run()
 {
 	while (isGoing)
 	{
+		qDebug() << "In Message send thread," << QThread::currentThread();
 		auto count = sendMsg->getMessagesCount();
 			for (int i = 0; i < count; i++) {
 				auto sm = sendMsg->getMessageStruct(i);

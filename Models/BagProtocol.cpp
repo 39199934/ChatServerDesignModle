@@ -69,6 +69,19 @@ void BagProtocol::loadFromFile(QString fileName)
 
 	return;
 }
+/*
+void BagProtocol::saveToFile(QString fileName)
+{
+	QFile file(fileName);
+	file.open(QIODevice::WriteOnly);
+	QDataStream data(&file);
+	data << this->toBytes();
+	file.close();
+
+		
+
+	return;
+}*/
 
 
 QJsonDocument BagProtocol::getBag()

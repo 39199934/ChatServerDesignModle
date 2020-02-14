@@ -4,6 +4,8 @@
 #include <QJsonObject>
 #include <QUuid>
 #include <QFile>
+#include <QIODevice>
+#include <QDataStream>
 class BagProtocol
 {
 
@@ -17,6 +19,9 @@ protected:
 
 	virtual QJsonObject appendToSonsJson(QJsonObject* obj) = 0; //用于子类继承，用于在父类中调用，添加个性化的数据
 	virtual void appendToSonsValue(QJsonObject* obj) = 0; //用于子类继承，用于在父类中调用，添加个性化的数据
+
+	//virtual void loadFromFile(QString fileName);
+	//virtual void saveToFile(QString fileName);
 private:
 
 public:
@@ -41,8 +46,8 @@ public:
 
 	static QString createUuid();
 
-	bool saveToFile(QString fileName, QIODevice::OpenModeFlag flag = QIODevice::OpenModeFlag::WriteOnly);
-	void loadFromFile(QString fileName);
+	virtual bool saveToFile(QString fileName, QIODevice::OpenModeFlag flag = QIODevice::OpenModeFlag::WriteOnly);
+	virtual void loadFromFile(QString fileName);
 	
 };
 
