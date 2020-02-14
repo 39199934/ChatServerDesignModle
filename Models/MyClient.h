@@ -6,31 +6,41 @@
 #include "Message.h"
 #include <QHostAddress>
 #include <QDataStream>
-#include "MessageCatch.h"
 #include "MessageSendThread.h"
+#include "CommandBody.h"
+#include "TextBody.h"
+#include <QDebug>
 
 class MyClient : public QTcpSocket
 {
 	Q_OBJECT
 
 
-private:
-	MessageCatch* messageCatch;
-	MessageSendThread* messageSendThread;
+protected:
+	//MessageCatch* messageCatch;
+	MessageSendThread messageSendThread;
+	QThread catchThread;
 public:
 	QVector<Message*> messages;
-	ClientInfo* clientInfo;
+	ClientInfo clientInfo;
 	//MyClient(QObject *parent);
 	MyClient(qintptr socketDescriptor, QObject* parent = nullptr);
-	~MyClient();
-	void sendMessage(Message* msg);
+	MyClient(const MyClient& c);
 
+	~MyClient();
+	void sendMessage(Message& msg);
+	MyClient& operator=(const MyClient&);
 	
 signals:
 	//void signalReciveNewMessage(Message*);
-	void signalClientHaveNewMessage(Message*);
+	void signalClientHaveNewMessage(Message);
+	void signalCatchFinished();
 public slots:
-	void appendMessage(Message* msg);
+	void appendMessage(Message msg);
 	void  readMessage();
+
+	void startCatchMessage();
+
+	
 
 };

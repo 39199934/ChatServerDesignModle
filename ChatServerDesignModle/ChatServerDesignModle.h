@@ -22,7 +22,7 @@ public slots:
 	void onChangeedServerStat();
 	void onClickedSendMessage();
 	void onClickedAddMore();
-	void slotNeedRefreshMessageViewer(MyClient*, Message*);
+	void slotNeedRefreshMessageViewer(MyClient&, Message);
 
 private:
 	Ui::ChatServerDesignModleClass ui;

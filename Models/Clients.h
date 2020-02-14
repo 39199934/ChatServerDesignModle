@@ -14,30 +14,31 @@ class Clients: public QAbstractTableModel
 	Q_OBJECT
 
 
-private:
-	QVector<MyClient*> clients;
+protected:
+	QVector<MyClient> clients;
 public:
 	Clients(QObject * parent = nullptr);
+	Clients(const Clients& c);
 	virtual ~Clients();
 
 
 	int getCount();
-	MyClient* appendClient(MyClient* client);
+	MyClient* appendClient(MyClient client);
 	MyClient* appendClient(qintptr socketDescriptor);
-	bool removeClient(MyClient* client);
-	bool replacClient(int index, MyClient* new_client);
-	int  findClient(MyClient* client);//找到返回索引值 ，没找到返回-1
+	bool removeClient(MyClient client);
+	bool replacClient(int index, MyClient new_client);
+	int  findClient(MyClient& client);//找到返回索引值 ，没找到返回-1
 	MyClient* getClient(int index);
 
-	QVector<ClientInfo*> getClientsInfo();
+	QVector<ClientInfo> getClientsInfo();
 	MyClient* findClient(int index);
-	ClientInfo* getClientInfo(int index);
+	ClientInfo getClientInfo(int index);
 
 	void disConnectToAll();
 
 
-	void sendMessageToAll(Message* msg);
-	bool sendMessage(int index, Message* msg);
+	void sendMessageToAll(Message msg);
+	bool sendMessage(int index, Message msg);
 
 
 public:
@@ -49,10 +50,10 @@ public:
 	virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
 	
 public slots:
-	void slotClientHasNewMessage(Message *msg);
+	void slotClientHasNewMessage(Message msg);
 signals:
 	//void ssss():
-	void signalClientHasNewMessage(MyClient* c, Message* m);
+	void signalClientHasNewMessage(MyClient& c, Message m);
 
 
 };

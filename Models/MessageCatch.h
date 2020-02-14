@@ -11,12 +11,13 @@ class MessageCatch : public QThread
 	Q_OBJECT
 
 signals:
-	void signalMessageIsReady(Message* msg);
-private:
+	void signalMessageIsReady(Message msg);
+protected:
 	QTcpSocket* socket;
 public:
 	bool isFinished;
 	MessageCatch(QTcpSocket * socket);
+	MessageCatch(const MessageCatch & m);
 	~MessageCatch();
 protected:
 	virtual void run() override;

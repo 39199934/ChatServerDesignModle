@@ -1,33 +1,34 @@
 #include "Message.h"
-#include <iostream>
-#include <Windows.h>
+#include <QDebug>
+#include <QThread>
 using namespace std;
 
 Message::Message(QObject *parent)
 	: QObject(parent),
-	head(nullptr),
 	body(nullptr)
 {
 	//cout << "hello" << endl;
+	head = MessageHead();
 }
 Message::Message(const Message& newM):
-	QObject(nullptr),
-	head(newM.head),
+	QObject(newM.parent()),
 	body(newM.body)
 {
-
+	head = newM.head;
 }
 
 Message::Message(BodyProtocol* new_body, QObject* parent):
 	QObject(parent),
 	body(new_body)
 {
-	head = new MessageHead();
-	head->setHeadSize(body->getSize());
+	qDebug() << body;
+	qDebug() << "origin *" << new_body;
+	head = MessageHead();
+	head.setHeadSize(body->getSize());
 	//head = &h;
 }
 
-Message::Message(MessageHead* new_head, BodyProtocol* new_body, QObject* parent):
+Message::Message(MessageHead new_head, BodyProtocol* new_body, QObject* parent):
 	head(new_head),
 	QObject(parent),
 	body(new_body)
@@ -36,21 +37,18 @@ Message::Message(MessageHead* new_head, BodyProtocol* new_body, QObject* parent)
 
 Message::~Message()
 {
+	qDebug() << "in ~Message" << this << " thread:" << QThread::currentThread();
 	cout << "del message" << endl;
-	if (head) {
-		delete head;
-	}
 	if (body) {
-		delete body;
+		//delete body;
 	}
 }
 
-void Message::send(QTcpSocket* socket)
+Message Message::operator=(const Message& msg)
 {
-	socket->write(head->toBytes(),head->getSize());
-	socket->waitForBytesWritten(3000);
-	
-	//Sleep(4000);
-	socket->flush();
-	socket->write(body->toBytes());
+	this->setParent( msg.parent());
+	this->head = msg.head;
+	this->body = msg.body;
+	return *this;
 }
+

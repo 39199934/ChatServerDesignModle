@@ -1,55 +1,84 @@
 #include "MyClient.h"
-#include "Message.h"
-#include "TextBody.h"
 
 
 
 
+using namespace std;
 MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	QTcpSocket(parent),
-	clientInfo(new ClientInfo()),
+	clientInfo(ClientInfo()),
 	messages(QVector<Message *>()),
-	messageCatch(new MessageCatch(this)),
-	messageSendThread(new MessageSendThread(this))
+	messageSendThread(MessageSendThread(this))
 {
 	setSocketDescriptor(socketDescriptor);
-	TextBody text("this is a msg", "server", "client");
-	Message *msg = new Message(&text, this);
-	msg->send(this);
-	messages.append(msg);
-	clientInfo->setIpAddress(this->peerAddress().toString());
-	clientInfo->setPort(this->peerPort());
-	//this->write("hello ,client");
 
 	connect(this, &MyClient::readyRead, this, &MyClient::readMessage);
-	connect(messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::appendMessage);
+	//connect(messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::appendMessage);
+
+	//缓存消息
+	connect(&catchThread, &QThread::started, this, &MyClient::startCatchMessage);
+	connect(this, &MyClient::signalClientHaveNewMessage, &catchThread, &QThread::quit);
+	this->moveToThread(&catchThread);
+
+	
+	BodyProtocol* text = new TextBody("this is a msg", "server", "client");
+	qDebug() << "text *" << text;
+	Message* msg =new  Message(text, this);
+	qDebug() << "in Client construct Message" << msg << " thread:" << QThread::currentThread();
+	//messages.append(msg);
+	this->sendMessage(*msg);
+	//msg->send(this);
+	
+	clientInfo.setIpAddress(this->peerAddress().toString());
+	clientInfo.setPort(this->peerPort());
+	//this->write("hello ,client");
+
+	
+
 }
+
+MyClient::MyClient(const MyClient& c):
+	QTcpSocket(c.parent()),
+	clientInfo(c.clientInfo),
+	messages(c.messages),
+	messageSendThread(c.messageSendThread)
+{
+	connect(this, &MyClient::readyRead, this, &MyClient::readMessage);
+	//connect(messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::appendMessage);
+
+	//缓存消息
+	connect(&catchThread, &QThread::started, this, &MyClient::startCatchMessage);
+	connect(this, &MyClient::signalClientHaveNewMessage, &catchThread, &QThread::quit);
+	this->moveToThread(&catchThread);
+}
+
+
 
 MyClient::~MyClient()
 {
-	if (clientInfo) {
-		delete clientInfo;
-	}
-	for each (auto msg in messages)
-	{
+	for each (auto msg in messages) {
+		if (msg->body) {
+			delete msg->body;
+			msg->body = nullptr;
+		}
+		messages.pop_back();
 		if (msg) {
 			delete msg;
 		}
-
 	}
 }
 
-void MyClient::sendMessage(Message* msg)
+void MyClient::sendMessage(Message& msg)
 {
 	
-	
-	messageSendThread->sendMessage(msg);
-	messages.append(msg);
+	qDebug() << "in ~Message" << &msg << " thread:" << QThread::currentThread();
+	messageSendThread.sendMessage(msg);
+	messages.append(&msg);
 }
 
-void MyClient::appendMessage(Message* msg)
+void MyClient::appendMessage(Message msg)
 {
-	messages.push_back(msg);
+	messages.push_back(&msg);
 	//emit signalReciveNewMessage(msg);
 	emit signalClientHaveNewMessage(msg);
 }
@@ -57,8 +86,88 @@ void MyClient::appendMessage(Message* msg)
 void MyClient::readMessage()
 {
 	qDebug() <<"in Myclient"<< QThread::currentThread();
-	messageCatch->start();
+	catchThread.start();
+	
+}
+
+void MyClient::startCatchMessage()
+{
+	qDebug() << "in message catch" << QThread::currentThread();
+	QByteArray bytes;
+	bytes =readAll();
+	Message msg;
+	QJsonDocument doc = QJsonDocument::fromJson(bytes);
+	if (doc.isEmpty()) {
+		
+		msg = Message(new TextBody(QString::fromLocal8Bit(bytes), "noSender", "noReciver"), this);
+
+	}
+	else {
+		//qDebug() << doc;
+
+		auto obj = doc.object();
+		QStringList keys = { "size","version","uuid" };
+		if (obj.contains("size") && obj.contains("version") && obj.contains("uuid")) {
+			auto head = MessageHead();
+			auto size = obj.value("size").toInt();
+			head.fromBytes(bytes);
+			int readedSize = 0;
+			QByteArray bodyBytes;
+			while (readedSize < size) {
+				if (isReadable()) {
+					auto b = readAll();
+					readedSize += b.size();
+					bodyBytes.append(b);
+				}
+				QThread::msleep(200);
+
+			}
+			BodyProtocol* bodyProtocol ;
+			QJsonParseError error;
+			auto doc = QJsonDocument::fromJson(bodyBytes, &error);
+			auto obj = doc.object();
+			if ((error.error != QJsonParseError::NoError) || (doc.isEmpty()) || (!obj.contains("type"))) {
+
+			}
+			else {
+				auto type = obj.value("type").toString();
+				if (type == "text") {
+					bodyProtocol =  new TextBody();
+					//auto textBody = new TextBody();
+					///textBody->fromBytes(body);
+					//bodyProtocol = textBody;
+				}
+				else if (type == "command") {
+					bodyProtocol = new CommandBody();
+
+				}
+				else
+				{
+
+				}
+				bodyProtocol->fromBytes(bodyBytes);
+			}
+
+
+			//return bodyProtocol;
+			//auto body = MessageFactory::BodyFactory(bodyBytes);
+			msg =  Message(head, bodyProtocol,this);
+			qDebug() << bodyProtocol->getBag()<<"   \r\nuser  is:";
+
+		}
+
+	}
+	emit signalClientHaveNewMessage(msg);
+	
 	
 }
 
 
+MyClient& MyClient::operator=(const MyClient& m)
+{
+	this->setParent(m.parent());
+	this->clientInfo= (m.clientInfo);
+	this->messages = (m.messages);
+	this->messageSendThread = m.messageSendThread;
+	return *this;
+}

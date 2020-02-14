@@ -8,6 +8,7 @@ private:
 	QString password;
 	QString ipAddress;
 	int port;
+	
 public:
 	ClientInfo();
 	ClientInfo(QString name, QString nick_name,QString pass_word);
@@ -27,6 +28,7 @@ public:
 	int getPort();
 
 	virtual QString getDescription() override;
+	bool isEmpty;
 	
 };
 

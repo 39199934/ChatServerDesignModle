@@ -1,6 +1,6 @@
 #include "MessageFactory.h"
-
-Message* MessageFactory::fromBytes(QByteArray& h, QByteArray& b)
+/*
+Message MessageFactory::fromBytes(QByteArray& h, QByteArray& b)
 {
 	BodyProtocol* body;
 	auto bodyObj = QJsonDocument::fromJson(b).object();
@@ -8,7 +8,7 @@ Message* MessageFactory::fromBytes(QByteArray& h, QByteArray& b)
 	//if (type = )
 	return nullptr;
 }
-
+*/
 BodyProtocol* MessageFactory::BodyFactory(QByteArray& body)
 {
 	BodyProtocol* bodyProtocol = nullptr;
@@ -39,25 +39,26 @@ BodyProtocol* MessageFactory::BodyFactory(QByteArray& body)
 	
 	return bodyProtocol;
 }
-Message* MessageFactory::BuildTextMessage(QString text, ServerInfo* serverInfo, ClientInfo* clientInfo)
+Message MessageFactory::BuildTextMessage(QString text, ServerInfo serverInfo, ClientInfo clientInfo)
 {
 	
 	QString reciver;
-	if (clientInfo == nullptr) {
+	if (clientInfo.isEmpty) {
 		reciver = "all";
 	}
 	else
 	{
-		reciver = clientInfo->getUuid();
+		reciver = clientInfo.getUuid();
 	}
-	auto sender = serverInfo->getUuid();
+	auto sender = serverInfo.getUuid();
 	auto body = new TextBody(text, sender,reciver );
-	auto msg = new Message(body);
+	qDebug() << "in factory,body address:" << body;
+	auto msg =  Message(body);
 	return msg;
 }
-Message* MessageFactory::BuildCommandMessage(CommandFactoryType type, ServerInfo* serverInfo, ClientInfo* clientInfo, QVector<UserInfoProtocol*> clientInfos)
+Message MessageFactory::BuildCommandMessage(CommandFactoryType type, ServerInfo serverInfo, ClientInfo clientInfo, QVector<ClientInfo> clientInfos)
 {
 	//auto serverSetting = context->getServerSetting();// getServerSetting();
 	//auto clients = context->getClients();
-	return nullptr;
+	return Message();
 }

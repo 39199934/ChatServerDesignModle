@@ -16,10 +16,10 @@ public:
 		clients,
 		serverInfo
 	};
-	static Message* fromBytes(QByteArray& head, QByteArray& body);
+	//static Message fromBytes(QByteArray& head, QByteArray& body);
 	static BodyProtocol* BodyFactory(QByteArray& body);
-	static Message* BuildTextMessage(QString text,ServerInfo* serverInfo, ClientInfo* clientInfo = nullptr);
-	static Message* BuildCommandMessage(CommandFactoryType type, ServerInfo* serverInfo, ClientInfo* clientInfo,QVector<UserInfoProtocol*> clientInfos);
+	static Message BuildTextMessage(QString text,ServerInfo serverInfo, ClientInfo clientInfo);
+	static Message BuildCommandMessage(CommandFactoryType type, ServerInfo serverInfo, ClientInfo clientInfo,QVector<ClientInfo> clientInfos);
 	
 };
 

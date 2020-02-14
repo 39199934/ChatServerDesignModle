@@ -1,6 +1,6 @@
 #include "MyServer.h"
 
-MyServer::MyServer(ServerInfo * info, QObject* parent)
+MyServer::MyServer(ServerInfo  info, QObject* parent)
 	: QTcpServer(parent),
 	info(info)
 	/*,
@@ -12,6 +12,12 @@ MyServer::MyServer(ServerInfo * info, QObject* parent)
 
 }
 
+MyServer::MyServer(const MyServer& m):
+	QTcpServer(m.parent()),
+	info(m.info)
+{
+}
+
 MyServer::~MyServer()
 {
 
@@ -19,7 +25,7 @@ MyServer::~MyServer()
 
 void MyServer::start()
 {
-	this->listen(QHostAddress::Any, info->serverPort);
+	this->listen(QHostAddress::Any, info.serverPort);
 }
 
 void MyServer::stop()
@@ -43,13 +49,7 @@ void MyServer::setMessageHistoryViewer(QTextEdit* viewer)
 	this->messageHistoryViewer = viewer;
 }
 */
-void MyServer::slotReciveMessage(Message* msg)
-{
-	if (!messageHistoryViewer) {
-		return;
-	}
-	messageHistoryViewer->append(msg->body->getDescription());
-}
+
 
 void MyServer::incomingConnection(qintptr socketDescriptor)
 {

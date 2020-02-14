@@ -4,7 +4,8 @@ ClientInfo::ClientInfo() :
 	UserInfoProtocol(),
 	password(QString()),
 	ipAddress("0.0.0.0"),
-	port(0)
+	port(0),
+	isEmpty(true)
 {
 	//this->password = QString();
 	this->setDocument();
@@ -14,7 +15,8 @@ ClientInfo::ClientInfo(QString name, QString nick_name, QString pass_word):
 	UserInfoProtocol(name,nick_name),
 	password(pass_word),
 	ipAddress("0.0.0.0"),
-	port(0)
+	port(0),
+	isEmpty(false)
 {
 	
 	//setUserInfoProtocol(name, nick_name, pass_word);

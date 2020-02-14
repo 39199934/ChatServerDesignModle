@@ -117,7 +117,6 @@
     <ClCompile Include="..\Models\ClientInfo.cpp" />
     <ClCompile Include="..\Models\Clients.cpp" />
     <ClCompile Include="..\Models\CommandBody.cpp" />
-    <ClCompile Include="..\Models\main.cpp" />
     <ClCompile Include="..\Models\Message.cpp" />
     <ClCompile Include="..\Models\MessageCatch.cpp" />
     <ClCompile Include="..\Models\MessageFactory.cpp" />
@@ -130,6 +129,7 @@
     <ClCompile Include="..\Models\UserInfoProtocol.cpp" />
     <ClCompile Include="ChatServerDesignModle.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ChatServerDesignModle.h" />

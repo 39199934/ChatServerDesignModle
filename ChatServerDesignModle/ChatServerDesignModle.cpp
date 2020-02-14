@@ -64,21 +64,20 @@ void ChatServerDesignModle::onClickedAddMore()
 {
 }
 
-void ChatServerDesignModle::slotNeedRefreshMessageViewer(MyClient* client, Message * msg)
+void ChatServerDesignModle::slotNeedRefreshMessageViewer(MyClient& client, Message  msg)
 {
 	qDebug() << "in slot need refresh" << QThread::currentThread();
 	auto row = this->getCurrentSelectedIndex();
-	auto cSel = context->getClient(row);
+	context->refreshMessages(ui.cMessageHistory, row);
+	//auto cSel = context->getClient(row);
 	//auto cSel = context->getClients()->findClient(getCurrentSelectedIndex());
-	if (cSel == client) {
-		context->refreshMessages(ui.cMessageHistory, client);
-	}
+	
 }
 
 void ChatServerDesignModle::onChangeedServerStat()
 {
 	if (context->serverIsListening()) {
-		context->closeServer();
+		context->stopServer();
 		ui.cActionServerState->setChecked(false);
 		ui.cToolBarServerState->setCheckable(false);
 

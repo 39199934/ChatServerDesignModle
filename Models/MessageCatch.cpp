@@ -7,6 +7,13 @@ MessageCatch::MessageCatch(QTcpSocket* socket)
 {
 }
 
+MessageCatch::MessageCatch(const MessageCatch& m)
+	: QThread(m.parent()),
+	socket(m.socket),
+	isFinished(m.isFinished)
+{
+}
+
 MessageCatch::~MessageCatch()
 {
 }
@@ -29,9 +36,9 @@ void MessageCatch::run()
 		auto obj = doc.object();
 		QStringList keys = { "size","version","uuid" };
 		if (obj.contains("size")  && obj.contains("version") && obj.contains("uuid")) {
-			auto head = new MessageHead();
+			auto head = MessageHead();
 			auto size = obj.value("size").toInt();
-			head->fromBytes(bytes);
+			head.fromBytes(bytes);
 			int readedSize = 0;
 			QByteArray bodyBytes;
 			while (readedSize < size) {

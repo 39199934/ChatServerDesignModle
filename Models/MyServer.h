@@ -14,14 +14,15 @@ class MyServer : public QTcpServer
 {
 	Q_OBJECT
 
-private:
-	ServerInfo* info;
+protected:
+	ServerInfo info;
 	//Clients* clients;
-	QTextEdit* messageHistoryViewer;
+	//QTextEdit* messageHistoryViewer;
 	
 	
 public:
-	MyServer(ServerInfo* info,QObject *parent);
+	MyServer(ServerInfo info,QObject *parent);
+	MyServer(const MyServer& m);
 	~MyServer();	
 
 	void start();
@@ -35,7 +36,7 @@ public:
 	
 public slots:
 
-	void slotReciveMessage(Message* msg);
+	//void slotReciveMessage(Message msg);
 
 signals:
 	void signalNewClientConnected(qintptr socketDescriptor);
