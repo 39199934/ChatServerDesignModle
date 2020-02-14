@@ -162,8 +162,9 @@ void MyClient::startCatchMessage()
 		}
 
 	}
-	emit signalClientHaveNewMessage(msg);
+	
 	messages.appendMessage(false, msg);
+	emit signalClientHaveNewMessage(msg);
 	
 	
 }

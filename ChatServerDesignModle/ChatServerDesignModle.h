@@ -23,6 +23,7 @@ public slots:
 	void onClickedSendMessage();
 	void onClickedAddMore();
 	void slotNeedRefreshMessageViewer(MyClient&, Message);
+	void slotListViewClicked(const QModelIndex& index);
 
 private:
 	Ui::ChatServerDesignModleClass ui;

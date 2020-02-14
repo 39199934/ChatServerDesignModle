@@ -18,6 +18,10 @@ ChatServerDesignModle::ChatServerDesignModle(QWidget *parent)
 	connect(ui.cBtnSend, &QPushButton::clicked, this, &ChatServerDesignModle::onClickedSendMessage);
 	connect(ui.cBtnAddMore, &QPushButton::clicked, this, &ChatServerDesignModle::onClickedAddMore);
 
+	connect(ui.cListView,&QListView::clicked,this, &ChatServerDesignModle::slotListViewClicked);
+	connect(ui.tableView, &QListView::clicked, this, &ChatServerDesignModle::slotListViewClicked);
+
+
 
 	connect(context, &Context::signalNeedRefreshMessageViewer, this, &ChatServerDesignModle::slotNeedRefreshMessageViewer);//  ChatServerDesignModle:slotNeedRefreshMessageViewer);
 	//server->start();
@@ -72,6 +76,11 @@ void ChatServerDesignModle::slotNeedRefreshMessageViewer(MyClient& client, Messa
 	//auto cSel = context->getClient(row);
 	//auto cSel = context->getClients()->findClient(getCurrentSelectedIndex());
 	
+}
+
+void ChatServerDesignModle::slotListViewClicked(const QModelIndex& index)
+{
+	context->refreshMessages(ui.cMessageHistory, index.row());
 }
 
 void ChatServerDesignModle::onChangeedServerStat()

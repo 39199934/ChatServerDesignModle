@@ -114,7 +114,7 @@ void Context::refreshMessages(QTextEdit* viewer, MyClient& client)
 			viewer->setTextColor(Qt::GlobalColor::red);
 			viewer->alignment();
 			viewer->setAlignment(Qt::AlignmentFlag::AlignRight);
-			viewer->append(QString::fromLocal8Bit("客户端说\n"));
+			viewer->append(QString::fromLocal8Bit("客户端说:"));
 			viewer->append(msg.body->getDescription());
 			
 		}else{
@@ -123,12 +123,12 @@ void Context::refreshMessages(QTextEdit* viewer, MyClient& client)
 		//if (uuid == msg->body->reciver) {
 			viewer->alignment();
 			viewer->setAlignment(Qt::AlignmentFlag::AlignLeft);
-			viewer->append(QString::fromLocal8Bit("服务器或其他客户端说\n"));
+			viewer->append(QString::fromLocal8Bit("服务器或其他客户端说:"));
 			auto des = msg.body->getDescription();
 			viewer->append(msg.body->getDescription());
 			
 		}
-		viewer->append("\n");
+		viewer->append("\n\n");
 		QScrollBar* scrollbar = viewer->verticalScrollBar();
 		if (scrollbar)
 		{

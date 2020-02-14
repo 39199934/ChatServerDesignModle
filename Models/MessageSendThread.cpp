@@ -46,7 +46,7 @@ void MessageSendThread::run()
 				}
 			}
 		isBusing = false;
-		msleep(500);
+		msleep(1000);
 	}
 
 }
