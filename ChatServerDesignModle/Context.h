@@ -8,8 +8,9 @@
 #include "../Models/MessageCatch.h"
 #include "../Models/MessageFactory.h"
 #include <QMessageBox>
-
-
+#include <QScrollBar>
+#include <QColor>
+#include <QRgb>
 
 class Context : public QObject
 {

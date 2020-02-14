@@ -38,7 +38,7 @@ signals:
 	void signalClientHaveNewMessage(Message);
 	void signalCatchFinished();
 public slots:
-	void appendMessage(Message msg);
+	//void appendMessage(Message msg);
 	void  readMessage();
 
 	void startCatchMessage();

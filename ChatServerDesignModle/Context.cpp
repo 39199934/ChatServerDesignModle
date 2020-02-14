@@ -106,21 +106,33 @@ void Context::refreshMessages(QTextEdit* viewer, MyClient& client)
 	auto messages = client.messages;
 	auto uuid = client.clientInfo.getUuid();
 	
-	for each (auto msg in messages)
-	{
-		auto type = msg->body->type;
-		if (uuid == msg->body->sender) {
+	for (int i = 0; i < messages.getMessagesCount(); i++) {
+		auto msgStr = messages.getMessageStruct(i);
+		auto msg = msgStr.msg;
+		
+		if (msgStr.isSendType) {
+			viewer->setTextColor(Qt::GlobalColor::red);
 			viewer->alignment();
 			viewer->setAlignment(Qt::AlignmentFlag::AlignRight);
-			viewer->append(QString::fromLocal8Bit("客户端说\r\n"));
-			viewer->append(msg->body->getDescription());
+			viewer->append(QString::fromLocal8Bit("客户端说\n"));
+			viewer->append(msg.body->getDescription());
+			
 		}else{
+
+			viewer->setTextColor(Qt::GlobalColor::blue);
 		//if (uuid == msg->body->reciver) {
 			viewer->alignment();
 			viewer->setAlignment(Qt::AlignmentFlag::AlignLeft);
-			viewer->append(QString::fromLocal8Bit("服务器或其他客户端说\r\n"));
-			auto des = msg->body->getDescription();
-			viewer->append(msg->body->getDescription());
+			viewer->append(QString::fromLocal8Bit("服务器或其他客户端说\n"));
+			auto des = msg.body->getDescription();
+			viewer->append(msg.body->getDescription());
+			
+		}
+		viewer->append("\n");
+		QScrollBar* scrollbar = viewer->verticalScrollBar();
+		if (scrollbar)
+		{
+			scrollbar->setSliderPosition(scrollbar->maximum());
 		}
 	}
 }

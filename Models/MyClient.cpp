@@ -78,15 +78,16 @@ void MyClient::sendMessage(Message& msg)
 	//messageSendThread.SetMessagesAndStart(msg);
 	
 	messages.appendMessage(true,msg);
+	emit signalClientHaveNewMessage(msg);
 }
-
+/*
 void MyClient::appendMessage(Message msg)
 {
 	messages.push_back(&msg);
 	//emit signalReciveNewMessage(msg);
 	emit signalClientHaveNewMessage(msg);
 }
-
+*/
 void MyClient::readMessage()
 {
 	qDebug() <<"in Myclient"<< QThread::currentThread();
@@ -162,6 +163,7 @@ void MyClient::startCatchMessage()
 
 	}
 	emit signalClientHaveNewMessage(msg);
+	messages.appendMessage(false, msg);
 	
 	
 }

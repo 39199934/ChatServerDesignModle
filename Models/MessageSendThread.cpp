@@ -41,6 +41,7 @@ void MessageSendThread::run()
 					msleep(100);
 					socket->write(sm.msg.body->toBytes());
 					socket->waitForBytesWritten();
+					sendMsg->markedIsSended(i);
 					msleep(300);
 				}
 			}
