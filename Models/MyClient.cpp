@@ -10,7 +10,7 @@ MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	messages(Messages(this)),
 	messageSendThread(MessageSendThread(this))
 {
-	QTcpSocket::QTcpSocket(this);
+	//QTcpSocket::QTcpSocket(this);
 	auto rt = setSocketDescriptor(socketDescriptor);
 
 	connect(this, &MyClient::readyRead, this, &MyClient::readMessage);
@@ -19,6 +19,7 @@ MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	//»º´æÏûÏ¢
 	connect(&catchThread, &QThread::started, this, &MyClient::startCatchMessage);
 	connect(this, &MyClient::signalClientHaveNewMessage, &catchThread, &QThread::quit);
+	//this->setParent(nullptr);
 	this->moveToThread(&catchThread);
 
 	
