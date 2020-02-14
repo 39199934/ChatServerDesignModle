@@ -121,6 +121,7 @@
     <ClCompile Include="..\Models\MessageCatch.cpp" />
     <ClCompile Include="..\Models\MessageFactory.cpp" />
     <ClCompile Include="..\Models\MessageHead.cpp" />
+    <ClCompile Include="..\Models\Messages.cpp" />
     <ClCompile Include="..\Models\MessageSendThread.cpp" />
     <ClCompile Include="..\Models\MyClient.cpp" />
     <ClCompile Include="..\Models\MyServer.cpp" />
@@ -158,6 +159,7 @@
     <QtMoc Include="..\Models\MessageSendThread.h" />
     <QtMoc Include="..\Models\MyClient.h" />
     <QtMoc Include="..\Models\MyServer.h" />
+    <QtMoc Include="..\Models\Messages.h" />
     <ClInclude Include="..\Models\ServerInfo.h" />
     <ClInclude Include="..\Models\TextBody.h" />
     <ClInclude Include="..\Models\UserInfoProtocol.h" />

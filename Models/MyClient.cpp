@@ -7,7 +7,7 @@ using namespace std;
 MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	QTcpSocket(parent),
 	clientInfo(ClientInfo()),
-	messages(QVector<Message *>()),
+	messages(Messages(this)),
 	messageSendThread(MessageSendThread(this))
 {
 	setSocketDescriptor(socketDescriptor);
@@ -32,6 +32,7 @@ MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	clientInfo.setIpAddress(this->peerAddress().toString());
 	clientInfo.setPort(this->peerPort());
 	//this->write("hello ,client");
+	messageSendThread.SetMessagesAndStart(&messages);
 
 	
 
@@ -50,30 +51,33 @@ MyClient::MyClient(const MyClient& c):
 	connect(&catchThread, &QThread::started, this, &MyClient::startCatchMessage);
 	connect(this, &MyClient::signalClientHaveNewMessage, &catchThread, &QThread::quit);
 	this->moveToThread(&catchThread);
+	messageSendThread.SetMessagesAndStart(&messages);
 }
 
 
 
 MyClient::~MyClient()
 {
-	for each (auto msg in messages) {
-		if (msg->body) {
-			delete msg->body;
-			msg->body = nullptr;
+	messageSendThread.isGoing = false;
+	messageSendThread.quit();
+	for (int i = 0; i < messages.getMessagesCount(); i++) {
+		auto sm = messages.getMessageStruct(i);
+		if (sm.msg.body) {
+			delete sm.msg.body;
+			sm.msg.body = nullptr;
 		}
-		messages.pop_back();
-		if (msg) {
-			delete msg;
-		}
+		
 	}
+	
 }
 
 void MyClient::sendMessage(Message& msg)
 {
 	
 	qDebug() << "in ~Message" << &msg << " thread:" << QThread::currentThread();
-	messageSendThread.sendMessage(msg);
-	messages.append(&msg);
+	//messageSendThread.SetMessagesAndStart(msg);
+	
+	messages.appendMessage(true,msg);
 }
 
 void MyClient::appendMessage(Message msg)

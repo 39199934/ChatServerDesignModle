@@ -79,6 +79,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Models\Messages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ChatServerDesignModle.h">
@@ -103,6 +106,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="..\Models\Clients.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="..\Models\Messages.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -7,7 +7,7 @@ Clients::~Clients()
 
 Clients::Clients(QObject* parent):
 	QAbstractTableModel(parent),
-	clients(QVector<MyClient >())
+	clients(QVector<MyClient* >())
 {
 }
 
@@ -25,8 +25,8 @@ int Clients::getCount()
 {
 	return clients.count();
 }
-
-MyClient* Clients::appendClient(MyClient client)
+/*
+MyClient* Clients::appendClient(MyClient* client)
 {
 	if (findClient(client) != -1) {
 		return nullptr;
@@ -40,11 +40,11 @@ MyClient* Clients::appendClient(MyClient client)
 	connect(&client, &MyClient::signalClientHaveNewMessage, this, &Clients::slotClientHasNewMessage);
 	return &client;
 }
-
+*/
 MyClient* Clients::appendClient(qintptr socketDescriptor)
 {
 	
-	MyClient client(socketDescriptor, this);
+	MyClient *client = new MyClient(socketDescriptor, this);
 	if (findClient(client) != -1) {
 		return nullptr;
 	}
@@ -54,11 +54,11 @@ MyClient* Clients::appendClient(qintptr socketDescriptor)
 	clients.append(client);
 
 	endInsertRows();
-	connect(&client, &MyClient::signalClientHaveNewMessage, this, &Clients::slotClientHasNewMessage);
-	return &client;
+	connect(client, &MyClient::signalClientHaveNewMessage, this, &Clients::slotClientHasNewMessage);
+	return client;
 	
 }
-
+/*
 bool Clients::removeClient(MyClient client)
 {
 	auto index = findClient(client);
@@ -72,6 +72,8 @@ bool Clients::removeClient(MyClient client)
 	return true;
 }
 
+*/
+/*
 bool Clients::replacClient(int index, MyClient new_client)
 {
 	if (index < getCount()) {
@@ -82,13 +84,13 @@ bool Clients::replacClient(int index, MyClient new_client)
 	}
 	return false;
 }
-
-int Clients::findClient(MyClient& client)
+*/
+int Clients::findClient(MyClient* client)
 {
 	for (int index = 0 ; index < clients.count(); index++) {
 		
 		
-		if (clients.at(index).socketDescriptor() == client.socketDescriptor()) {
+		if (clients.at(index) == client) {
 			return index;
 		}
 	}
@@ -98,7 +100,7 @@ int Clients::findClient(MyClient& client)
 MyClient* Clients::getClient(int index)
 {
 	if (index >= 0 && index < clients.count()) {
-		return &clients[index];
+		return clients[index];
 	}
 	else
 	{
@@ -110,7 +112,7 @@ QVector<ClientInfo> Clients::getClientsInfo()
 {
 	QVector<ClientInfo> clientInfos = QVector<ClientInfo>();
 	for each(auto client in clients) {
-		clientInfos.push_back(client.clientInfo);
+		clientInfos.push_back(client->clientInfo);
 	}
 	return clientInfos;
 }
@@ -120,7 +122,7 @@ MyClient* Clients::findClient(int index)
 	if (index >= clients.count() || index < 0) {
 		return nullptr;
 	}
-	return &clients[index];
+	return clients[index];
 	//return nullptr;
 }
 
@@ -163,7 +165,7 @@ bool Clients::sendMessage(int index, Message msg)
 QVariant Clients::data(const QModelIndex& index, int role) const
 {
 	if (Qt::DisplayRole == role) {
-		auto info = clients[index.row()].clientInfo;
+		auto info = clients[index.row()]->clientInfo;
 		if (index.column() == 0) {
 			return info.getDescription();
 		}
@@ -238,12 +240,12 @@ bool Clients::setData(const QModelIndex& index, const QVariant& value, int role)
 	if (Qt::EditRole == role) {
 		if (index.column() == 0)
 		{
-			this->clients[index.row()].clientInfo.setNickName( value.toString());
+			this->clients[index.row()]->clientInfo.setNickName( value.toString());
 			return true;
 		}
 		if (index.column() == 1)
 		{
-			this->clients[index.row()].clientInfo.setName( value.toString());
+			this->clients[index.row()]->clientInfo.setName( value.toString());
 			return true;
 		}
 		

@@ -4,7 +4,8 @@ MessageSendThread::MessageSendThread(QTcpSocket* parent)
 	: QThread(parent),
 	socket(parent),
 	isBusing(false),
-	sendMsg(Message())
+	sendMsg(nullptr),
+	isGoing(true)
 {
 }
 
@@ -16,9 +17,9 @@ MessageSendThread::MessageSendThread(const MessageSendThread& new_thread):
 {
 }
 
-void MessageSendThread::sendMessage(Message& msg)
+void MessageSendThread::SetMessagesAndStart(Messages* msgs)
 {
-	this->sendMsg = msg;
+	this->sendMsg = msgs;
 	this->start();
 }
 
@@ -28,13 +29,24 @@ MessageSendThread::~MessageSendThread()
 
 void MessageSendThread::run()
 {
-	isBusing = true;
-	socket->write(sendMsg.head.toBytes());
-	socket->waitForBytesWritten();
-	msleep(2000);
-	socket->write(sendMsg.body->toBytes());
-	socket->waitForBytesWritten();
-	isBusing = false;
+	while (isGoing)
+	{
+		auto count = sendMsg->getMessagesCount();
+			for (int i = 0; i < count; i++) {
+				auto sm = sendMsg->getMessageStruct(i);
+				isBusing = true;
+				if (sm.isSendType && (!sm.isSended)) {
+					socket->write(sm.msg.head.toBytes());
+					socket->waitForBytesWritten();
+					msleep(100);
+					socket->write(sm.msg.body->toBytes());
+					socket->waitForBytesWritten();
+					msleep(300);
+				}
+			}
+		isBusing = false;
+		msleep(500);
+	}
 
 }
 

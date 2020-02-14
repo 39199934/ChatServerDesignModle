@@ -2,19 +2,20 @@
 
 #include <QThread>
 #include <QTcpSocket>
-#include "Message.h"
+#include "Messages.h"
 
 class MessageSendThread : public QThread
 {
 	Q_OBJECT
 protected:
-	Message sendMsg;
+	Messages *sendMsg;
 	QTcpSocket* socket;
 
 public:
+	bool isGoing;
 	MessageSendThread(QTcpSocket* parent);
 	MessageSendThread(const MessageSendThread& new_thread);
-	void sendMessage(Message& msg);
+	void SetMessagesAndStart(Messages* msgs);
 	~MessageSendThread();
 	bool isBusing;
 	MessageSendThread& operator=(const MessageSendThread& m);

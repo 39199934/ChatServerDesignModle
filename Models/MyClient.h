@@ -10,6 +10,7 @@
 #include "CommandBody.h"
 #include "TextBody.h"
 #include <QDebug>
+#include "Messages.h"
 
 class MyClient : public QTcpSocket
 {
@@ -20,8 +21,9 @@ protected:
 	//MessageCatch* messageCatch;
 	MessageSendThread messageSendThread;
 	QThread catchThread;
+	QThread sendThread;
 public:
-	QVector<Message*> messages;
+	Messages messages;
 	ClientInfo clientInfo;
 	//MyClient(QObject *parent);
 	MyClient(qintptr socketDescriptor, QObject* parent = nullptr);

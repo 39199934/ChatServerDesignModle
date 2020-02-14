@@ -15,7 +15,7 @@ class Clients: public QAbstractTableModel
 
 
 protected:
-	QVector<MyClient> clients;
+	QVector<MyClient*> clients;
 public:
 	Clients(QObject * parent = nullptr);
 	Clients(const Clients& c);
@@ -23,11 +23,11 @@ public:
 
 
 	int getCount();
-	MyClient* appendClient(MyClient client);
+	//MyClient* appendClient(MyClient client);
 	MyClient* appendClient(qintptr socketDescriptor);
-	bool removeClient(MyClient client);
-	bool replacClient(int index, MyClient new_client);
-	int  findClient(MyClient& client);//找到返回索引值 ，没找到返回-1
+	//bool removeClient(MyClient client);
+	//bool replacClient(int index, MyClient new_client);
+	int  findClient(MyClient* client);//找到返回索引值 ，没找到返回-1
 	MyClient* getClient(int index);
 
 	QVector<ClientInfo> getClientsInfo();
