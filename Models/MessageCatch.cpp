@@ -20,6 +20,7 @@ MessageCatch::~MessageCatch()
 
 void MessageCatch::run()
 {
+	/*/
 	qDebug() << "in message catch" << QThread::currentThread();
 	QByteArray bytes;
 	bytes = socket->readAll();
@@ -86,4 +87,77 @@ void MessageCatch::run()
 	}
 	emit signalMessageIsReady(msg);
 	isFinished = true;
+	*/
+	isFinished = false;
+	qDebug() << "in message catch" << QThread::currentThread();
+	QByteArray bytes;
+	bytes = socket->readAll();
+	Message msg;
+	QJsonDocument doc = QJsonDocument::fromJson(bytes);
+	if (doc.isEmpty()) {
+
+		msg = Message(new TextBody(QString::fromLocal8Bit(bytes), "noSender", "noReciver"), nullptr);
+
+	}
+	else {
+		//qDebug() << doc;
+
+		auto obj = doc.object();
+		QStringList keys = { "size","version","uuid" };
+		if (obj.contains("size") && obj.contains("version") && obj.contains("uuid")) {
+			auto head = MessageHead();
+			auto size = obj.value("size").toInt();
+			head.fromBytes(bytes);
+			int readedSize = 0;
+			QByteArray bodyBytes;
+			qDebug() << "In Catch Thread:" << QThread::currentThread();
+			while (readedSize < size) {
+				if (socket->isReadable()) {
+					auto b = socket->readAll();
+					readedSize += b.size();
+					bodyBytes.append(b);
+				}
+				QThread::msleep(200);
+
+			}
+			BodyProtocol* bodyProtocol;
+			QJsonParseError error;
+			auto doc = QJsonDocument::fromJson(bodyBytes, &error);
+			auto obj = doc.object();
+			if ((error.error != QJsonParseError::NoError) || (doc.isEmpty()) || (!obj.contains("type"))) {
+
+			}
+			else {
+				auto type = obj.value("type").toString();
+				if (type == "text") {
+					bodyProtocol = new TextBody();
+					//auto textBody = new TextBody();
+					///textBody->fromBytes(body);
+					//bodyProtocol = textBody;
+				}
+				else if (type == "command") {
+					bodyProtocol = new CommandBody();
+
+				}
+				else
+				{
+
+				}
+				bodyProtocol->fromBytes(bodyBytes);
+			}
+
+
+			//return bodyProtocol;
+			//auto body = MessageFactory::BodyFactory(bodyBytes);
+			msg = Message(head, bodyProtocol, this);
+			qDebug() << bodyProtocol->getBag() << "   \r\nuser  is:";
+
+		}
+
+	}
+
+	//messages.appendMessage(false, msg);
+	isFinished = true;
+	emit signalMessageIsReady(msg);
+	
 }

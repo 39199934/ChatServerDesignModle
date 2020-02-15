@@ -6,6 +6,7 @@
 #include <QTcpSocket>
 #include <iostream>
 #include <Windows.h>
+#include <QMetaType>
 
 
 class Message : public QObject

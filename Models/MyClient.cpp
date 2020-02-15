@@ -8,19 +8,20 @@ MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	QTcpSocket(parent),
 	clientInfo(ClientInfo()),
 	messages(Messages(this)),
-	messageSendThread(MessageSendThread(this))
+	messageSendThread(MessageSendThread(this)),
+	messageCatch(MessageCatch(this))
 {
 	//QTcpSocket::QTcpSocket(this);
 	auto rt = setSocketDescriptor(socketDescriptor);
 
 	connect(this, &MyClient::readyRead, this, &MyClient::readMessage);
-	//connect(messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::appendMessage);
+	connect(&messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::slotCatchRecivedMessage);
 
 	//缓存消息
-	connect(&catchThread, &QThread::started, this, &MyClient::startCatchMessage);
-	connect(this, &MyClient::signalClientHaveNewMessage, &catchThread, &QThread::quit);
+	//connect(&catchThread, &QThread::started, this, &MyClient::startCatchMessage);
+	//connect(this, &MyClient::signalClientHaveNewMessage, &catchThread, &QThread::quit);
 	//this->setParent(nullptr);
-	this->moveToThread(&catchThread);
+	//this->moveToThread(&catchThread);
 
 	
 	BodyProtocol* text = new TextBody("this is a msg", "server", "client");
@@ -44,15 +45,18 @@ MyClient::MyClient(const MyClient& c):
 	QTcpSocket(c.parent()),
 	clientInfo(c.clientInfo),
 	messages(c.messages),
-	messageSendThread(c.messageSendThread)
+	messageSendThread(c.messageSendThread),
+	messageCatch(c.messageCatch)
 {
 	connect(this, &MyClient::readyRead, this, &MyClient::readMessage);
-	//connect(messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::appendMessage);
+	connect(&messageCatch, &MessageCatch::signalMessageIsReady, this, &MyClient::slotCatchRecivedMessage);
 
-	//缓存消息
-	connect(&catchThread, &QThread::started, this, &MyClient::startCatchMessage);
-	connect(this, &MyClient::signalClientHaveNewMessage, &catchThread, &QThread::quit);
-	this->moveToThread(&catchThread);
+	
+	
+
+	clientInfo.setIpAddress(this->peerAddress().toString());
+	clientInfo.setPort(this->peerPort());
+	//this->write("hello ,client");
 	messageSendThread.SetMessagesAndStart(&messages);
 }
 
@@ -94,10 +98,10 @@ void MyClient::appendMessage(Message msg)
 void MyClient::readMessage()
 {
 	qDebug() <<"in Myclient"<< QThread::currentThread();
-	catchThread.start();
+	messageCatch.start();
 	
 }
-
+/*
 void MyClient::startCatchMessage()
 {
 	qDebug() << "in message catch" << QThread::currentThread();
@@ -171,6 +175,12 @@ void MyClient::startCatchMessage()
 	emit signalClientHaveNewMessage(msg);
 	
 	
+}*/
+
+void MyClient::slotCatchRecivedMessage(Message msg)
+{
+	messages.appendMessage(false, msg);
+	emit signalClientHaveNewMessage(msg);
 }
 
 

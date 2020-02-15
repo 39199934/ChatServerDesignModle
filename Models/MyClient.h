@@ -11,6 +11,7 @@
 #include "TextBody.h"
 #include <QDebug>
 #include "Messages.h"
+#include "MessageCatch.h"
 
 class MyClient : public QTcpSocket
 {
@@ -18,9 +19,9 @@ class MyClient : public QTcpSocket
 
 
 protected:
-	//MessageCatch* messageCatch;
+	MessageCatch messageCatch;
 	MessageSendThread messageSendThread;
-	QThread catchThread;
+	//QThread catchThread;
 	QThread sendThread;
 public:
 	Messages messages;
@@ -38,10 +39,11 @@ signals:
 	void signalClientHaveNewMessage(Message);
 	void signalCatchFinished();
 public slots:
-	//void appendMessage(Message msg);
+	
 	void  readMessage();
 
-	void startCatchMessage();
+	//void startCatchMessage();
+	void slotCatchRecivedMessage(Message msg);
 
 	
 
