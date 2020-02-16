@@ -33,6 +33,7 @@ public:
 
 
 	virtual QByteArray toBytes();
+	virtual QJsonObject toObject();
 	
 	
 	QJsonDocument getBag();
@@ -41,6 +42,7 @@ public:
 
 
 	virtual void fromBytes(QByteArray bytes) ;//需要继承，用于从QByteArray 转换为本类中的数据和BAG
+	//virtual void fromObject(QJsonObject obj);
 	void fromJson(QJsonDocument doc);
 	void fromJson(QJsonObject obj);
 

@@ -82,6 +82,9 @@
     <ClCompile Include="..\Models\Messages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Models\ClientWithInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ChatServerDesignModle.h">
@@ -157,6 +160,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Models\UserInfoProtocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Models\ClientWithInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -39,3 +39,19 @@ QString CommandBody::getDescription()
 {
 	return "command,name is:" + this->commandName;
 }
+
+void CommandBody::run(ServerInfo* serverInfo, Clients* clients, ClientInfo* cinfo)
+{
+	if (this->commandType == "request") {
+		if (this->commandName == "updateClientInfo")
+		{
+			auto obj = this->commandDetail.at(0).toObject();
+			ClientInfo info;
+			info.fromJson(obj);
+			*cinfo = info;
+		}
+	}
+	else if(this->commandType == "answer"){
+
+	}
+}

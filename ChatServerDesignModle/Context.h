@@ -21,7 +21,7 @@ public:
 	~Context();
 	static Context* getContext(QObject* parent = nullptr);
 	
-	ServerInfo getServerInfo();
+	//ServerInfo getServerInfo();
 
 	
 	//QTextEdit* messageViewer;
@@ -36,7 +36,7 @@ signals:
 
 public slots:
 	//void slotNeedRefreshMessageViewer(MyClient* client, Message* msg);
-	void slotHasNewMessage(MyClient& client, Message msg);
+	void slotHasNewMessage(MyClient* client, Message msg);
 
 
 	//服务器所来消息处理槽

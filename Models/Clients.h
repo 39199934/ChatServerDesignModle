@@ -53,7 +53,7 @@ public slots:
 	void slotClientHasNewMessage(Message msg);
 signals:
 	//void ssss():
-	void signalClientHasNewMessage(MyClient& c, Message m);
+	void signalClientHasNewMessage(MyClient* c, Message m);
 
 
 };

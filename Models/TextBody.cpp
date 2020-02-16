@@ -30,3 +30,7 @@ QString TextBody::getDescription()
 	return "text message:"+ this->text;
 }
 
+void TextBody::run(ServerInfo* serverInfo, Clients* clients, ClientInfo* info)
+{
+}
+

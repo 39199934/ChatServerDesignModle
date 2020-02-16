@@ -24,6 +24,11 @@ QByteArray BagProtocol::toBytes()
 	return bag.toJson();
 }
 
+QJsonObject BagProtocol::toObject()
+{
+	return bag.object();
+}
+
 void BagProtocol::fromJson(QJsonDocument doc)
 {
 	this->bag = doc;
@@ -100,3 +105,9 @@ void BagProtocol::fromBytes(QByteArray bytes)
 	bag = QJsonDocument::fromJson(bytes);
 	this->setValue();
 }
+/*
+void BagProtocol::fromObject(QJsonObject obj)
+{
+	this->bag.setObject(obj);
+	this->setValue();
+}*/

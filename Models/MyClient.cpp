@@ -11,6 +11,7 @@ MyClient::MyClient(qintptr socketDescriptor, QObject* parent):
 	messageSendThread(MessageSendThread(this)),
 	messageCatch(MessageCatch(this))
 {
+	clientInfo.setUserInfoProtocol(QString::fromLocal8Bit("client"), "client not  named", BagProtocol::createUuid());
 	//QTcpSocket::QTcpSocket(this);
 	auto rt = setSocketDescriptor(socketDescriptor);
 

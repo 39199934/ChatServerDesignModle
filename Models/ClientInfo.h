@@ -4,10 +4,11 @@
 class ClientInfo :
 	public UserInfoProtocol
 {
-private:
+protected:
 	QString password;
 	QString ipAddress;
 	int port;
+	bool isLogin;
 	
 public:
 	ClientInfo();

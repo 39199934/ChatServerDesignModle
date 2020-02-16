@@ -258,6 +258,6 @@ bool Clients::setData(const QModelIndex& index, const QVariant& value, int role)
 void Clients::slotClientHasNewMessage(Message msg)
 {
 	auto client = static_cast<MyClient*>(sender());
-	emit signalClientHasNewMessage(*client, msg);
+	emit signalClientHasNewMessage(client, msg);
 	//emit ssss();
 }

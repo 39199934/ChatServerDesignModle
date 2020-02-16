@@ -13,6 +13,8 @@ public:
 	TextBody();
 	TextBody(QString textMessage,QString sender= QString(),QString reciver = QString());
 	virtual QString getDescription() ;
+
+	virtual void run(ServerInfo* serverInfo, Clients* clients, ClientInfo* info) override;
 	
 };
 

@@ -1,19 +1,20 @@
 #include "UserInfoProtocol.h"
 
 UserInfoProtocol::UserInfoProtocol():
-	BagProtocol()
+	BagProtocol(),
+	uuid(BagProtocol::createUuid())
 {
 	/*this->name = QString();
 	this->nickName = QString();
 	this->uuid = QString();*/
-	setUserInfoProtocol(QString(), QString());
+	//setUserInfoProtocol(QString(), QString());
 	
 }
 
 UserInfoProtocol::UserInfoProtocol(QString name, QString nick_name, QString user_uuid) :
 	BagProtocol()
 {
-	setUserInfoProtocol(name, nick_name, user_uuid);
+	//setUserInfoProtocol(name, nick_name, user_uuid);
 
 }
 
@@ -26,12 +27,15 @@ void UserInfoProtocol::setUserInfoProtocol(QString name, QString nick_name, QStr
 	if (!user_uuid.isEmpty()) {
 		this->uuid = user_uuid;
 	}
+	else {
+		this->uuid = BagProtocol::createUuid();
+	}
 
 	
 	this->name = name;
 	this->nickName = nick_name;
 	
-	//setDocument();
+	setDocument();
 	
 }
 

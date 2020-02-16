@@ -88,12 +88,14 @@
     <ClCompile Include="..\Models\TextBody.cpp" />
     <ClCompile Include="ChatClientDesignModle.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RigestUser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ChatClientDesignModle.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ChatClientDesignModle.ui" />
+    <QtUic Include="RigestUser.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="ChatClientDesignModle.qrc" />
@@ -102,6 +104,7 @@
     <ClInclude Include="..\Models\BagProtocol.h" />
     <ClInclude Include="..\Models\BodyProtocol.h" />
     <ClInclude Include="..\Models\CommandBody.h" />
+    <QtMoc Include="RigestUser.h" />
     <QtMoc Include="..\Models\Message.h" />
     <ClInclude Include="..\Models\MessageHead.h" />
     <ClInclude Include="..\Models\TextBody.h" />

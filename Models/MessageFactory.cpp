@@ -62,3 +62,29 @@ Message MessageFactory::BuildCommandMessage(CommandFactoryType type, ServerInfo 
 	//auto clients = context->getClients();
 	return Message();
 }
+
+Message MessageFactory::BuildCommandMessage(CommandFactoryType type, ServerInfo serverInfo, Clients* clients,MyClient* client)
+{
+	Message msg;
+	QJsonArray array;
+	CommandBody* body;
+	switch (type)
+	{
+	case MessageFactory::login:
+		break;
+	case MessageFactory::clients:
+		break;
+	case MessageFactory::serverInfo:
+		break;
+	case MessageFactory::updateServerInfo:
+		
+		array.insert(0, serverInfo.toObject());
+		body = new CommandBody("answer", "updateServerInfo", array,serverInfo.getUuid(),client->clientInfo.getUuid());
+		msg = Message(body, client);
+		qDebug() << body->toObject();
+		break;
+	default:
+		break;
+	}
+	return msg;
+}

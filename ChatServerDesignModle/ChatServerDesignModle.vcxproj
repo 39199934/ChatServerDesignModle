@@ -115,6 +115,7 @@
     <ClCompile Include="..\Models\BagProtocol.cpp" />
     <ClCompile Include="..\Models\BodyProtocol.cpp" />
     <ClCompile Include="..\Models\ClientInfo.cpp" />
+    <ClCompile Include="..\Models\ClientWithInfo.cpp" />
     <ClCompile Include="..\Models\Clients.cpp" />
     <ClCompile Include="..\Models\CommandBody.cpp" />
     <ClCompile Include="..\Models\Message.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="..\Models\Bodys.h" />
     <ClInclude Include="..\Models\ClientInfo.h" />
     <QtMoc Include="..\Models\Clients.h" />
+    <ClInclude Include="..\Models\ClientWithInfo.h" />
     <ClInclude Include="..\Models\CommandBody.h" />
     <QtMoc Include="..\Models\Message.h" />
     <QtMoc Include="..\Models\MessageCatch.h" />

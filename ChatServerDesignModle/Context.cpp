@@ -140,15 +140,19 @@ void Context::refreshMessages(QTextEdit* viewer, MyClient& client)
 
 
 
-void Context::slotHasNewMessage(MyClient& client, Message msg)
+void Context::slotHasNewMessage(MyClient* client, Message msg)
 {
-	emit signalNeedRefreshMessageViewer(client, msg);
+	emit signalNeedRefreshMessageViewer(*client, msg);
+	if (msg.body->reciver == serverInfo->getUuid())
+	{
+		msg.body->run(serverInfo, clients, &(client->clientInfo));
+	}
 }
 
 void Context::slotHasNewClientConnected(qintptr socketDescriptor)
 {
 	auto client = clients->appendClient(socketDescriptor);
-	auto msg = MessageFactory::BuildTextMessage("hello client", *serverInfo, client->clientInfo);
+	auto msg = MessageFactory::BuildCommandMessage(MessageFactory::updateServerInfo, *serverInfo, clients, client);
 	qDebug() << "in Context,body address:" << msg.body;
 	client->sendMessage(msg);
 	

@@ -5,10 +5,13 @@ ClientInfo::ClientInfo() :
 	password(QString()),
 	ipAddress("0.0.0.0"),
 	port(0),
-	isEmpty(true)
+	isEmpty(true),
+	isLogin(false)
 {
 	//this->password = QString();
+	
 	this->setDocument();
+	createUuid();
 }
 
 ClientInfo::ClientInfo(QString name, QString nick_name, QString pass_word):

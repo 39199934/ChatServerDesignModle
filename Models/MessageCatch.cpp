@@ -125,7 +125,7 @@ void MessageCatch::run()
 			auto doc = QJsonDocument::fromJson(bodyBytes, &error);
 			auto obj = doc.object();
 			if ((error.error != QJsonParseError::NoError) || (doc.isEmpty()) || (!obj.contains("type"))) {
-
+				msg = Message(new TextBody(QString::fromUtf8(bodyBytes), "noSender", "noReciver"), nullptr);
 			}
 			else {
 				auto type = obj.value("type").toString();

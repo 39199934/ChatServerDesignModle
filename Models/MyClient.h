@@ -12,7 +12,7 @@
 #include <QDebug>
 #include "Messages.h"
 #include "MessageCatch.h"
-
+//class MessageCatch;
 class MyClient : public QTcpSocket
 {
 	Q_OBJECT
