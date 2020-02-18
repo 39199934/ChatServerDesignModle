@@ -8,7 +8,7 @@ protected:
 	QString password;
 	QString ipAddress;
 	int port;
-	bool isLogin;
+	
 	
 public:
 	ClientInfo();
@@ -30,6 +30,7 @@ public:
 
 	virtual QString getDescription() override;
 	bool isEmpty;
+	bool isLogin;
 	
 };
 

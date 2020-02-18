@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{98268AD3-8054-47C1-9FF5-22B3999E04E2}</ProjectGuid>
+    <ProjectGuid>{C990963D-68BA-4F10-AD56-80138F91BA55}</ProjectGuid>
     <Keyword>QtVS_v302</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
@@ -43,11 +43,11 @@
   </ImportGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <QtInstall>msvc2017</QtInstall>
-    <QtModules>core;gui;multimedia;multimediawidgets;network;networkauth;widgets</QtModules>
+    <QtModules>core;network;networkauth</QtModules>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <QtInstall>msvc2017</QtInstall>
-    <QtModules>core;gui;multimedia;multimediawidgets;network;networkauth;widgets</QtModules>
+    <QtModules>core;network;networkauth</QtModules>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
     <Import Project="$(QtMsBuild)\qt.props" />
@@ -61,7 +61,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
@@ -74,40 +74,13 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Models\BagProtocol.cpp" />
-    <ClCompile Include="..\Models\BodyProtocol.cpp" />
-    <ClCompile Include="..\Models\CommandBody.cpp" />
-    <ClCompile Include="..\Models\Message.cpp" />
-    <ClCompile Include="..\Models\MessageHead.cpp" />
-    <ClCompile Include="..\Models\TextBody.cpp" />
-    <ClCompile Include="ChatClientDesignModle.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="RigestUser.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="ChatClientDesignModle.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="ChatClientDesignModle.ui" />
-    <QtUic Include="RigestUser.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtRcc Include="ChatClientDesignModle.qrc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Models\BagProtocol.h" />
-    <ClInclude Include="..\Models\BodyProtocol.h" />
-    <ClInclude Include="..\Models\CommandBody.h" />
-    <QtMoc Include="RigestUser.h" />
-    <QtMoc Include="..\Models\Message.h" />
-    <ClInclude Include="..\Models\MessageHead.h" />
-    <ClInclude Include="..\Models\TextBody.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
@@ -115,4 +88,9 @@
   </ImportGroup>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" MocOptions="" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

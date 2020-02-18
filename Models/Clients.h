@@ -7,6 +7,8 @@
 #include <QAbstractItemModel>
 #include <QAbstractTableModel>
 #include "Message.h"
+#include <QColor>
+#include <QBrush>
 
 
 class Clients: public QAbstractTableModel

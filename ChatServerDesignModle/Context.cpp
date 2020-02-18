@@ -152,7 +152,7 @@ void Context::slotHasNewMessage(MyClient* client, Message msg)
 void Context::slotHasNewClientConnected(qintptr socketDescriptor)
 {
 	auto client = clients->appendClient(socketDescriptor);
-	auto msg = MessageFactory::BuildCommandMessage(MessageFactory::updateServerInfo, *serverInfo, clients, client);
+	auto msg = MessageFactory::BuildCommandMessage(MessageFactory::answerUpdateServerInfo, *serverInfo, clients, client);
 	qDebug() << "in Context,body address:" << msg.body;
 	client->sendMessage(msg);
 	

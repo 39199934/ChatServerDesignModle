@@ -16,6 +16,7 @@ MessageCatch::MessageCatch(const MessageCatch& m)
 
 MessageCatch::~MessageCatch()
 {
+	this->exit();
 }
 
 void MessageCatch::run()

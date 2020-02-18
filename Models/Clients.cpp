@@ -185,6 +185,19 @@ QVariant Clients::data(const QModelIndex& index, int role) const
 		}
 		
 	}
+	if (Qt::ForegroundRole == role) {
+		auto info = clients[index.row()]->clientInfo;
+		if (info.isLogin) {
+			QBrush brush;
+			brush.setColor(Qt::blue);
+			return brush;
+		}
+		else {
+			QBrush brush;
+			brush.setColor(Qt::red);
+			return brush;
+		}
+	}
 	return QVariant();
 }
 

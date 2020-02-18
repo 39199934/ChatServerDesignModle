@@ -50,6 +50,9 @@ void CommandBody::run(ServerInfo* serverInfo, Clients* clients, ClientInfo* cinf
 			info.fromJson(obj);
 			*cinfo = info;
 		}
+		if (this->commandName == "login") {
+
+		}
 	}
 	else if(this->commandType == "answer"){
 

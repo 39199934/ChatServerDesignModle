@@ -11,5 +11,6 @@ ClientWithInfo::ClientWithInfo(qintptr socketDescriptor, QString name, QString n
 
 ClientWithInfo::~ClientWithInfo()
 {
-	saveInfos(ClientInfosFileName);
+	//saveInfos(ClientInfosFileName);
 }
+

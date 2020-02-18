@@ -16,8 +16,8 @@ public:
 	~ClientWithInfo();
 protected:
 	//QVector<ClientWithInfo> infos;
-	bool saveInfos(QString fileName);
-	void loadInfos(QString fileName);
+	//bool saveInfos(QString fileName);
+	//void loadInfos(QString fileName);
 
 
 };

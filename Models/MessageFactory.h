@@ -8,16 +8,17 @@
 #include "ClientInfo.h"
 #include <QVector>
 #include "MyClient.h"
+#include "Clients.h"
 
 class MessageFactory
 {
 public:
 	enum CommandFactoryType {
-		login,
-		loginup,
-		clients,
-		serverInfo,
-		updateServerInfo
+		requestLogin,
+		requestRegistered,
+		answerClients,
+		answerServerInfo,
+		answerUpdateServerInfo
 	};
 	//static Message fromBytes(QByteArray& head, QByteArray& body);
 	static BodyProtocol* BodyFactory(QByteArray& body);
