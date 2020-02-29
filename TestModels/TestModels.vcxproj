@@ -5,9 +5,17 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -23,6 +31,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -42,12 +56,16 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <QtInstall>msvc2017</QtInstall>
+    <QtInstall>msvc2017_64</QtInstall>
     <QtModules>core;network;networkauth</QtModules>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <QtInstall>msvc2017</QtInstall>
+    <QtInstall>msvc2017_64</QtInstall>
     <QtModules>core;network;networkauth</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>msvc2017_64</QtInstall>
+    <QtModules>core;network;networkauth;widgets;winextras</QtModules>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
     <Import Project="$(QtMsBuild)\qt.props" />
@@ -80,7 +98,50 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Models\BagProtocol.cpp" />
+    <ClCompile Include="..\Models\BodyProtocol.cpp" />
+    <ClCompile Include="..\Models\ClientInfo.cpp" />
+    <ClCompile Include="..\Models\Clients.cpp" />
+    <ClCompile Include="..\Models\CommandBody.cpp" />
+    <ClCompile Include="..\Models\Message.cpp" />
+    <ClCompile Include="..\Models\MessageCatch.cpp" />
+    <ClCompile Include="..\Models\MessageFactory.cpp" />
+    <ClCompile Include="..\Models\MessageHead.cpp" />
+    <ClCompile Include="..\Models\Messages.cpp" />
+    <ClCompile Include="..\Models\MessageSendThread.cpp" />
+    <ClCompile Include="..\Models\MyClient.cpp" />
+    <ClCompile Include="..\Models\ServerInfo.cpp" />
+    <ClCompile Include="..\Models\TextBody.cpp" />
+    <ClCompile Include="..\Models\UserInfoProtocol.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Window.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Client.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Models\BagProtocol.h" />
+    <ClInclude Include="..\Models\BodyProtocol.h" />
+    <ClInclude Include="..\Models\ClientInfo.h" />
+    <QtMoc Include="..\Models\MyClient.h" />
+    <QtMoc Include="..\Models\Clients.h" />
+    <ClInclude Include="..\Models\CommandBody.h" />
+    <ClInclude Include="..\Models\MessageFactory.h" />
+    <ClInclude Include="..\Models\MessageHead.h" />
+    <ClInclude Include="..\Models\ServerInfo.h" />
+    <QtMoc Include="..\Models\MessageSendThread.h" />
+    <QtMoc Include="..\Models\Messages.h" />
+    <QtMoc Include="..\Models\MessageCatch.h" />
+    <QtMoc Include="..\Models\Message.h" />
+    <ClInclude Include="..\Models\TextBody.h" />
+    <ClInclude Include="..\Models\UserInfoProtocol.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

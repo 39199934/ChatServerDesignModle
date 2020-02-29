@@ -13,8 +13,8 @@ public:
 	QString getName();
 	QString getNickName();
 	QString getUuid();
-	void setName(QString name);
-	void setNickName(QString nickName);
+	virtual void setName(QString name);
+	virtual void setNickName(QString nickName);
 	
 protected:
 	virtual void setValue() override;////需要继承，用于从doc中转换为本类中的value数据

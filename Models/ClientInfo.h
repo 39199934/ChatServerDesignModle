@@ -1,9 +1,11 @@
 #pragma once
 #include "UserInfoProtocol.h"
 
+
 class ClientInfo :
 	public UserInfoProtocol
 {
+	
 protected:
 	QString password;
 	QString ipAddress;
@@ -31,6 +33,9 @@ public:
 	virtual QString getDescription() override;
 	bool isEmpty;
 	bool isLogin;
+
+signals:
+	void signalClientInfoChanged();
 	
 };
 

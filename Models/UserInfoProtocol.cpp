@@ -4,17 +4,17 @@ UserInfoProtocol::UserInfoProtocol():
 	BagProtocol(),
 	uuid(BagProtocol::createUuid())
 {
-	/*this->name = QString();
+	this->name = QString();
 	this->nickName = QString();
-	this->uuid = QString();*/
-	//setUserInfoProtocol(QString(), QString());
+	this->uuid = QString();
+	setUserInfoProtocol(QString(), QString());
 	
 }
 
 UserInfoProtocol::UserInfoProtocol(QString name, QString nick_name, QString user_uuid) :
 	BagProtocol()
 {
-	//setUserInfoProtocol(name, nick_name, user_uuid);
+	setUserInfoProtocol(name, nick_name, user_uuid);
 
 }
 

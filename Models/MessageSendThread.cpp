@@ -25,7 +25,9 @@ void MessageSendThread::SetMessagesAndStart(Messages* msgs)
 
 MessageSendThread::~MessageSendThread()
 {
-	this->exit();
+	this->quit();
+	this->wait();
+	
 }
 
 void MessageSendThread::run()
